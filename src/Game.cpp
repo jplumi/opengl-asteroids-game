@@ -34,7 +34,12 @@ void Game::HandleEvents()
 
 void Game::Update(float deltaTime)
 {
-
+    if(keys[GLFW_KEY_W])
+        player->MoveForward(deltaTime);
+    if(keys[GLFW_KEY_A])
+        player->Rotate(-120 * deltaTime);
+    if(keys[GLFW_KEY_D])
+        player->Rotate(120 * deltaTime);
 }
 
 void Game::Render()
