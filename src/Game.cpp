@@ -28,6 +28,7 @@ void Game::Init()
     Texture2D shipTex = ResourceManager::LoadTexture2D("ship", "/Users/joaolumi/Documents/cpp/asteroids/resources/ship.png", true);
     player = new Player(shipTex, playerPos);
     player->speed = 150.0f;
+    player->thrustTex = ResourceManager::LoadTexture2D("shipThrust", "/Users/joaolumi/Documents/cpp/asteroids/resources/ship_thrust.png", true);
 }
 
 void Game::HandleEvents()

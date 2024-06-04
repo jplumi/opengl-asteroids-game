@@ -1,15 +1,18 @@
 #pragma once
 
 #include "Entity.hpp"
-#include "Game.hpp"
 
-float magnitude(glm::vec2 vector);
 float lerp(float min, float max, float value);
 
+const float thrustFlickTime = 0.02f;
+float thrustCurrTime = 0.0f;
+bool showThrust = false;
 
 class Player : public Entity
 {
 public:
+    Texture2D thrustTex;
+
     glm::vec2 forward = glm::vec2(1.0f, 0.0f);
     glm::vec2 up = glm::vec2(0.0f, -1.0f);
 public:
@@ -17,7 +20,7 @@ public:
 
     void AddForce(glm::vec2 f)
     {
-        force += f;
+        m_force += f;
     }
 
     void Rotate(float angle)
@@ -26,29 +29,47 @@ public:
         UpdateVectors();
     }
 
+    void Render(SpriteRenderer* renderer) override
+    {
+        renderer->DrawSprite(texture, position, size, rotation);
+        if(showThrust)
+            RenderThrust(renderer);
+    }
+
     void Update(float deltaTime) override
     {
         Entity::Update(deltaTime);
-         // check input
+
+        // check input
         if(Game::keys[GLFW_KEY_W])
+        {
             AddForce(forward * deltaTime * speed);
+            // thrust flickering efffect
+            thrustCurrTime += deltaTime;
+            if(thrustCurrTime >= thrustFlickTime)
+            {
+                showThrust = !showThrust;
+                thrustCurrTime = 0.0f;
+            }
+        } else
+        {
+            showThrust = false;
+        }
         if(Game::keys[GLFW_KEY_A])
             Rotate(-120 * deltaTime);
         if(Game::keys[GLFW_KEY_D])
             Rotate(120 * deltaTime);
         
         // apply force
-        position += force * deltaTime;
+        position += m_force * deltaTime;
 
         // drag
-        force.x = lerp(force.x, 0, deltaTime);
-        force.y = lerp(force.y, 0, deltaTime);
-
-        // std::cout << "force: " << force.x << ", " << force.y << '\n';
+        m_force.x = lerp(m_force.x, 0, deltaTime);
+        m_force.y = lerp(m_force.y, 0, deltaTime);
     }
 
 private:
-    glm::vec2 force;
+    glm::vec2 m_force;
 private:
     void UpdateVectors()
     {
@@ -60,12 +81,13 @@ private:
         forward = glm::normalize(front);
         up = glm::normalize(glm::cross(front, glm::vec3(0.0f, 0.0f, 1.0f)));
     }
-};
 
-float magnitude(glm::vec2 vector)
-{
-    return vector.x * vector.x + vector.y * vector.y;
-}
+    void RenderThrust(SpriteRenderer* renderer)
+    {
+        glm::vec2 thrustPos = position - forward * 11.5f;
+        renderer->DrawSprite(thrustTex, thrustPos, size, rotation);
+    }
+};
 
 float lerp(float min, float max, float value)
 {

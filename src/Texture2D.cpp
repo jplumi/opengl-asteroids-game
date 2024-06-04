@@ -4,7 +4,7 @@ Texture2D::Texture2D() :
     width(0), height(0), 
     internalFormat(GL_RGB), imageFormat(GL_RGB),
     wrapS(GL_REPEAT), wrapT(GL_REPEAT),
-    filterMin(GL_NEAREST), filterMax(GL_NEAREST) 
+    filterMin(GL_NEAREST), filterMax(GL_NEAREST)
 {
     glGenTextures(1, &ID);
 };

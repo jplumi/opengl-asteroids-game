@@ -21,7 +21,7 @@ public:
     float rotation;
     float speed;
 public:
-    void Render(SpriteRenderer *renderer);
+    virtual void Render(SpriteRenderer *renderer);
     virtual void Update(float deltaTime);
 private:
 };

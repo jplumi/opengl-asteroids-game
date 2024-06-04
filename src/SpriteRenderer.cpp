@@ -54,9 +54,18 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, glm::vec2 position,
         glm::vec3 color)
 {
     _shader.Use();
+
+    glActiveTexture(GL_TEXTURE0);
+    texture.Bind();
+
+    glBindVertexArray(_quadVAO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _EBO);
+
+    glm::mat4 model;
+
     // center (normal position)
     // ------------------
-    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(position, 1.0f));
 
     // rotate from the center of the sprite
@@ -69,11 +78,6 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, glm::vec2 position,
     _shader.SetMat4("model", model);
     _shader.SetVec3("objectColor", color.x, color.y, color.z);
 
-    glActiveTexture(GL_TEXTURE0);
-    texture.Bind();
-
-    glBindVertexArray(_quadVAO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _EBO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     // ------------------
 
@@ -82,7 +86,6 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, glm::vec2 position,
     model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(position.x+WINDOW_WIDTH, position.y, 1.0f));
 
-    // rotate from the center of the sprite
     model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
     model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
@@ -100,7 +103,6 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, glm::vec2 position,
     model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(position.x-WINDOW_WIDTH, position.y, 1.0f));
 
-    // rotate from the center of the sprite
     model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
     model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
@@ -108,7 +110,6 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, glm::vec2 position,
     model = glm::scale(model, glm::vec3(size, 1.0f));
 
     _shader.SetMat4("model", model);
-    // _shader.SetVec3("objectColor", 1.0f, 0.0f, 0.0f);
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     // ------------------
@@ -118,7 +119,6 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, glm::vec2 position,
     model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(position.x, position.y-WINDOW_HEIGHT, 1.0f));
 
-    // rotate from the center of the sprite
     model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
     model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
@@ -126,7 +126,6 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, glm::vec2 position,
     model = glm::scale(model, glm::vec3(size, 1.0f));
 
     _shader.SetMat4("model", model);
-    // _shader.SetVec3("objectColor", 1.0f, 0.0f, 0.0f);
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     // ------------------
@@ -136,7 +135,6 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, glm::vec2 position,
     model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(position.x, position.y+WINDOW_HEIGHT, 1.0f));
 
-    // rotate from the center of the sprite
     model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
     model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
@@ -154,7 +152,6 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, glm::vec2 position,
     model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(position.x+WINDOW_WIDTH, position.y-WINDOW_HEIGHT, 1.0f));
 
-    // rotate from the center of the sprite
     model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
     model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
@@ -172,7 +169,6 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, glm::vec2 position,
     model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(position.x-WINDOW_WIDTH, position.y-WINDOW_HEIGHT, 1.0f));
 
-    // rotate from the center of the sprite
     model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
     model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
@@ -190,7 +186,6 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, glm::vec2 position,
     model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(position.x+WINDOW_WIDTH, position.y+WINDOW_HEIGHT, 1.0f));
 
-    // rotate from the center of the sprite
     model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
     model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
@@ -208,7 +203,6 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, glm::vec2 position,
     model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(position.x-WINDOW_WIDTH, position.y+WINDOW_HEIGHT, 1.0f));
 
-    // rotate from the center of the sprite
     model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
     model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
