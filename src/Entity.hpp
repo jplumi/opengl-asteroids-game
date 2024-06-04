@@ -13,7 +13,8 @@ public:
         glm::vec2 size = glm::vec2(50.0f),
         float rotation = 0.0f,
         float speed = 100.0f);
-
+    virtual ~Entity() = default;
+public:
     Texture2D texture;
     glm::vec2 position;
     glm::vec2 size;

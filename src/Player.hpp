@@ -28,6 +28,7 @@ public:
 
     void Update(float deltaTime) override
     {
+        Entity::Update(deltaTime);
          // check input
         if(Game::keys[GLFW_KEY_W])
             AddForce(forward * deltaTime * speed);
@@ -43,7 +44,7 @@ public:
         force.x = lerp(force.x, 0, deltaTime);
         force.y = lerp(force.y, 0, deltaTime);
 
-        std::cout << "force: " << force.x << ", " << force.y << '\n';
+        // std::cout << "force: " << force.x << ", " << force.y << '\n';
     }
 
 private:

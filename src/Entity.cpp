@@ -1,4 +1,5 @@
 #include "Entity.hpp"
+#include "Defs.h"
 
 Entity::Entity() {};
 
@@ -17,6 +18,13 @@ void Entity::Render(SpriteRenderer *renderer)
 
 void Entity::Update(float deltaTime)
 {
-   std::cout << "parent update";
+    if(position.x < -WINDOW_WIDTH)
+        position.x += WINDOW_WIDTH;
+    if(position.x > WINDOW_WIDTH)
+        position.x -= WINDOW_WIDTH;
+    if(position.y > WINDOW_HEIGHT)
+        position.y -= WINDOW_HEIGHT;
+    if(position.y < -WINDOW_HEIGHT)
+        position.y += WINDOW_HEIGHT;
 }
 
