@@ -19,15 +19,8 @@ public:
     glm::vec2 size;
     float rotation;
     float speed;
-
 public:
     void Render(SpriteRenderer *renderer);
-    void MoveForward(float deltaTime);
-    void Rotate(float angle);
-
+    virtual void Update(float deltaTime);
 private:
-    glm::vec2 m_forward = glm::vec2(1.0f, 0.0f);
-    glm::vec2 m_up = glm::vec2(0.0f, 1.0f);
-private:
-    void UpdateVectors();
 };

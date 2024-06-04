@@ -1,7 +1,9 @@
 #include "Game.hpp"
-#include "Entity.hpp"
+#include "Player.hpp"
 
-Entity *player;
+Player *player;
+
+bool Game::keys[];
 
 Game::~Game()
 {
@@ -24,7 +26,8 @@ void Game::Init()
 
     glm::vec2 playerPos = glm::vec2(WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
     Texture2D shipTex = ResourceManager::LoadTexture2D("ship", "/Users/joaolumi/Documents/cpp/asteroids/resources/ship.png", true);
-    player = new Entity(shipTex, playerPos);
+    player = new Player(shipTex, playerPos);
+    player->speed = 150.0f;
 }
 
 void Game::HandleEvents()
@@ -34,12 +37,7 @@ void Game::HandleEvents()
 
 void Game::Update(float deltaTime)
 {
-    if(keys[GLFW_KEY_W])
-        player->MoveForward(deltaTime);
-    if(keys[GLFW_KEY_A])
-        player->Rotate(-120 * deltaTime);
-    if(keys[GLFW_KEY_D])
-        player->Rotate(120 * deltaTime);
+    player->Update(deltaTime);
 }
 
 void Game::Render()

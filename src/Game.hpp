@@ -14,7 +14,7 @@ public:
 
     GLFWwindow* window;
     SpriteRenderer *renderer;
-    bool keys[1024];
+    static bool keys[1024];
 public:
     void Init();
     void HandleEvents();

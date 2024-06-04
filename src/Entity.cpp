@@ -1,5 +1,4 @@
 #include "Entity.hpp"
-#include <iostream>
 
 Entity::Entity() {};
 
@@ -16,24 +15,8 @@ void Entity::Render(SpriteRenderer *renderer)
     renderer->DrawSprite(texture, position, size, rotation);
 }
 
-void Entity::MoveForward(float deltaTime)
+void Entity::Update(float deltaTime)
 {
-    position += m_forward * speed * deltaTime;
+   std::cout << "parent update";
 }
 
-void Entity::Rotate(float angle)
-{
-    rotation += angle;
-    UpdateVectors();
-}
-
-void Entity::UpdateVectors()
-{
-    glm::vec3 front;
-    front.x = cos(glm::radians(rotation));
-    front.y = sin(glm::radians(rotation));
-    front.z = 0.0f;
-
-    m_forward = glm::normalize(front);
-    m_up = glm::normalize(glm::cross(front, glm::vec3(0.0f, 0.0f, 1.0f)));
-}

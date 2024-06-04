@@ -1,8 +1,8 @@
 CC := clang++
-FLAGS := -Wall
+FLAGS := -Wall -std=c++11
 OUT := out/game
 LIBS_PATH := -Ldependencies/lib
-LIBS := -lglfw.3.4 # -lSDL2-2.0.0
+LIBS := -lglfw.3.4
 INCLUDES := -Idependencies/include
 TARGETS := src/*.cpp src/glad.c
 
