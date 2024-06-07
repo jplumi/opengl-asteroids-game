@@ -19,7 +19,7 @@ public:
 private:
     int m_enemiesIndex = 0;
 
-    const float m_spawnInterval = 3.0f;
+    const float m_spawnInterval = 1.0f;
     float m_currSpawnTime = 0.0f;
 
     const int m_asteroidSizeOptions[3] = { 50, 80, 120 };

@@ -21,8 +21,11 @@ void EnemiesManager::SpawnAsteroid()
 {
     if(m_enemiesIndex < MAX_ENEMIES)
     {
-        Entity* newEnemy = new Entity(
-            ResourceManager::GetTexture2D("asteroid1"));
+        Entity* newEnemy = new Entity();
+
+        // random sprite
+        newEnemy->texture = ResourceManager::GetTexture2D(
+            "asteroid" + std::to_string(1 + rand() % 3));
 
         // random size
         int randomSize = m_asteroidSizeOptions[rand() % 3];
@@ -38,11 +41,16 @@ void EnemiesManager::SpawnAsteroid()
             newEnemy->position.x = -newEnemy->size.x;
             newEnemy->position.y = rand() % WINDOW_HEIGHT;
         }
-        
-        std::cout << "spawned at: " << newEnemy->position.x << ", " << newEnemy->position.y << '\n';
+
+        // random rotation
+        float randomAngle = rand() % 180;
+        newEnemy->rotation = randomAngle;
 
         // random direction
-        newEnemy->forward = glm::normalize(glm::vec2(rand() % 100, rand() % 100));
+        newEnemy->forward = glm::normalize(glm::vec2(rand() - RAND_MAX/2, rand() - RAND_MAX/2));
+
+        // random speed
+        newEnemy->speed = 20 + rand() % 200;
 
         enemies.push_back(newEnemy);
         m_enemiesIndex++;
@@ -51,18 +59,17 @@ void EnemiesManager::SpawnAsteroid()
 
 void EnemiesManager::UpdateEnemies(float deltaTime)
 {
-    // m_currSpawnTime += deltaTime;
-    // if(m_currSpawnTime >= m_spawnInterval)
-    // {
-    //     SpawnAsteroid();
-    //     m_currSpawnTime = 0.0f;
-    // }
+    m_currSpawnTime += deltaTime;
+    if(m_currSpawnTime >= m_spawnInterval)
+    {
+        SpawnAsteroid();
+        m_currSpawnTime = 0.0f;
+    }
 
     for(Entity* e : enemies)
     {
         e->Update(deltaTime);
-        e->position += e->forward * deltaTime * 100.0f;
-        // std::cout << e->position.x << ", " << e->position.y << '\n';
+        e->position += e->forward * deltaTime * e->speed;
     }
 }
 
