@@ -53,16 +53,16 @@ public:
             showThrust = false;
         }
         if(Game::keys[GLFW_KEY_A])
-            Rotate(-150 * deltaTime);
+            Rotate(-250 * deltaTime);
         if(Game::keys[GLFW_KEY_D])
-            Rotate(150 * deltaTime);
+            Rotate(250 * deltaTime);
         
         // apply force
         position += m_force * deltaTime;
 
         // drag
-        m_force.x = lerp(m_force.x, 0, deltaTime);
-        m_force.y = lerp(m_force.y, 0, deltaTime);
+        m_force.x = lerp(m_force.x, 0, deltaTime * 0.5f);
+        m_force.y = lerp(m_force.y, 0, deltaTime * 0.5f);
     }
 
 private:
