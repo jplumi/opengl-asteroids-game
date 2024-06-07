@@ -1,7 +1,9 @@
 #include "Game.hpp"
 #include "Player.hpp"
+#include "EnemiesManager.hpp"
 
 Player *player;
+EnemiesManager* enemiesManager;
 
 bool Game::keys[];
 
@@ -9,6 +11,7 @@ Game::~Game()
 {
     delete renderer;
     delete player;
+    delete enemiesManager;
 }
 
 void Game::Init()
@@ -24,11 +27,16 @@ void Game::Init()
 
     renderer = new SpriteRenderer(baseShader);
 
+    // init player
     glm::vec2 playerPos = glm::vec2(WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
     Texture2D shipTex = ResourceManager::LoadTexture2D("ship", "/Users/joaolumi/Documents/cpp/asteroids/resources/ship.png", true);
     player = new Player(shipTex, playerPos);
-    player->speed = 150.0f;
+    player->Rotate(-90);
+    player->speed = 250.0f;
     player->thrustTex = ResourceManager::LoadTexture2D("shipThrust", "/Users/joaolumi/Documents/cpp/asteroids/resources/ship_thrust.png", true);
+
+    enemiesManager = new EnemiesManager();
+    enemiesManager->Init();
 }
 
 void Game::HandleEvents()
@@ -39,6 +47,7 @@ void Game::HandleEvents()
 void Game::Update(float deltaTime)
 {
     player->Update(deltaTime);
+    enemiesManager->UpdateEnemies(deltaTime);
 }
 
 void Game::Render()
@@ -47,6 +56,7 @@ void Game::Render()
     glClear(GL_COLOR_BUFFER_BIT);
 
     player->Render(renderer);
+    enemiesManager->RenderEnemies(renderer);
 
     glfwSwapBuffers(window);
 }

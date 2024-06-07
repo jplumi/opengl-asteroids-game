@@ -53,19 +53,10 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, glm::vec2 position,
         float rotate, 
         glm::vec3 color)
 {
-    _shader.Use();
-
-    glActiveTexture(GL_TEXTURE0);
-    texture.Bind();
-
     glBindVertexArray(_quadVAO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _EBO);
 
-    glm::mat4 model;
-
-    // center (normal position)
-    // ------------------
-    model = glm::mat4(1.0f);
+    glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(position, 1.0f));
 
     // rotate from the center of the sprite
@@ -75,145 +66,14 @@ void SpriteRenderer::DrawSprite(const Texture2D &texture, glm::vec2 position,
 
     model = glm::scale(model, glm::vec3(size, 1.0f));
 
+    _shader.Use();
+
     _shader.SetMat4("model", model);
     _shader.SetVec3("objectColor", color.x, color.y, color.z);
 
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    // ------------------
-
-    // right side
-    // ------------------
-    model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(position.x+WINDOW_WIDTH, position.y, 1.0f));
-
-    model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
-    model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
-    model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
-
-    model = glm::scale(model, glm::vec3(size, 1.0f));
-
-    _shader.SetMat4("model", model);
-    // _shader.SetVec3("objectColor", 0.5f, 0.5f, 0.5f);
+    glActiveTexture(GL_TEXTURE0);
+    texture.Bind();
 
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    // ------------------
-
-    // left side
-    // ------------------
-    model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(position.x-WINDOW_WIDTH, position.y, 1.0f));
-
-    model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
-    model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
-    model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
-
-    model = glm::scale(model, glm::vec3(size, 1.0f));
-
-    _shader.SetMat4("model", model);
-
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    // ------------------
-
-    // top
-    // ------------------
-    model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(position.x, position.y-WINDOW_HEIGHT, 1.0f));
-
-    model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
-    model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
-    model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
-
-    model = glm::scale(model, glm::vec3(size, 1.0f));
-
-    _shader.SetMat4("model", model);
-
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    // ------------------
-
-    // bottom
-    // ------------------
-    model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(position.x, position.y+WINDOW_HEIGHT, 1.0f));
-
-    model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
-    model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
-    model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
-
-    model = glm::scale(model, glm::vec3(size, 1.0f));
-
-    _shader.SetMat4("model", model);
-    // _shader.SetVec3("objectColor", 1.0f, 0.0f, 0.0f);
-
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    // ------------------
-
-    // top right
-    // ------------------
-    model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(position.x+WINDOW_WIDTH, position.y-WINDOW_HEIGHT, 1.0f));
-
-    model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
-    model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
-    model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
-
-    model = glm::scale(model, glm::vec3(size, 1.0f));
-
-    _shader.SetMat4("model", model);
-    // _shader.SetVec3("objectColor", 1.0f, 0.0f, 0.0f);
-
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    // ------------------
-
-    // top left
-    // ------------------
-    model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(position.x-WINDOW_WIDTH, position.y-WINDOW_HEIGHT, 1.0f));
-
-    model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
-    model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
-    model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
-
-    model = glm::scale(model, glm::vec3(size, 1.0f));
-
-    _shader.SetMat4("model", model);
-    // _shader.SetVec3("objectColor", 1.0f, 0.0f, 0.0f);
-
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    // ------------------
-
-    // bottom right
-    // ------------------
-    model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(position.x+WINDOW_WIDTH, position.y+WINDOW_HEIGHT, 1.0f));
-
-    model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
-    model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
-    model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
-
-    model = glm::scale(model, glm::vec3(size, 1.0f));
-
-    _shader.SetMat4("model", model);
-    // _shader.SetVec3("objectColor", 1.0f, 0.0f, 0.0f);
-
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    // ------------------
-
-    // bottom left
-    // ------------------
-    model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(position.x-WINDOW_WIDTH, position.y+WINDOW_HEIGHT, 1.0f));
-
-    model = glm::translate(model, glm::vec3(0.5f * size.x, 0.5f * size.y, 0.0f));
-    model = glm::rotate(model, glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f));
-    model = glm::translate(model, glm::vec3(-0.5f * size.x, -0.5f * size.y, 0.0f));
-
-    model = glm::scale(model, glm::vec3(size, 1.0f));
-
-    _shader.SetMat4("model", model);
-    // _shader.SetVec3("objectColor", 1.0f, 0.0f, 0.0f);
-
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    // ------------------
-
     glBindVertexArray(0);
 }

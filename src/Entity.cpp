@@ -18,13 +18,13 @@ void Entity::Render(SpriteRenderer *renderer)
 
 void Entity::Update(float deltaTime)
 {
-    if(position.x < -WINDOW_WIDTH)
-        position.x += WINDOW_WIDTH;
+    if(position.x < -size.x)
+        position.x += WINDOW_WIDTH + size.x;
     if(position.x > WINDOW_WIDTH)
-        position.x -= WINDOW_WIDTH;
+        position.x -= WINDOW_WIDTH + size.x;
     if(position.y > WINDOW_HEIGHT)
-        position.y -= WINDOW_HEIGHT;
-    if(position.y < -WINDOW_HEIGHT)
-        position.y += WINDOW_HEIGHT;
+        position.y -= WINDOW_HEIGHT+size.y;
+    if(position.y < -size.y)
+        position.y += WINDOW_HEIGHT + size.y;
 }
 

@@ -20,6 +20,7 @@ public:
     glm::vec2 size;
     float rotation;
     float speed;
+    glm::vec2 forward = glm::vec2(1.0f, 0.0f);
 public:
     virtual void Render(SpriteRenderer *renderer);
     virtual void Update(float deltaTime);

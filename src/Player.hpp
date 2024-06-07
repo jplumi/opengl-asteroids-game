@@ -12,9 +12,6 @@ class Player : public Entity
 {
 public:
     Texture2D thrustTex;
-
-    glm::vec2 forward = glm::vec2(1.0f, 0.0f);
-    glm::vec2 up = glm::vec2(0.0f, -1.0f);
 public:
     using Entity::Entity;
 
@@ -56,9 +53,9 @@ public:
             showThrust = false;
         }
         if(Game::keys[GLFW_KEY_A])
-            Rotate(-120 * deltaTime);
+            Rotate(-150 * deltaTime);
         if(Game::keys[GLFW_KEY_D])
-            Rotate(120 * deltaTime);
+            Rotate(150 * deltaTime);
         
         // apply force
         position += m_force * deltaTime;
@@ -79,7 +76,6 @@ private:
         front.z = 0.0f;
 
         forward = glm::normalize(front);
-        up = glm::normalize(glm::cross(front, glm::vec3(0.0f, 0.0f, 1.0f)));
     }
 
     void RenderThrust(SpriteRenderer* renderer)

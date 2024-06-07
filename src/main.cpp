@@ -3,6 +3,8 @@
 #include "Game.hpp"
 #include "Shader.hpp"
 #include "ResourceManager.hpp"
+#include <chrono>
+#include <thread>
 
 void frameBufferSizeCallback(GLFWwindow* window, int width, int height);
 
@@ -12,6 +14,8 @@ Game game;
 
 int main()
 {
+    srand(time(0));
+
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
@@ -21,6 +25,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
+    
     game.window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "LearnOpenGL", NULL, NULL);
     if (game.window == NULL)
     {
@@ -39,7 +44,10 @@ int main()
         return -1;
     }
 
-    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    int x, y;
+    glfwGetFramebufferSize(game.window, &x, &y);
+    glViewport(0, 0, x, y);
+
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -47,8 +55,14 @@ int main()
 
     float lastFrameTime = 0.0f;
     float deltaTime = 0.0f;
+    const float frameTargetTime = 0.0166;
     while(!glfwWindowShouldClose(game.window))
     {
+        // cap frame rate
+        int timeToSleep = (frameTargetTime - (glfwGetTime() - lastFrameTime)) * 1000;
+        if(timeToSleep > 0)
+            std::this_thread::sleep_for(std::chrono::milliseconds(timeToSleep));
+
         float currentTime = glfwGetTime();
         deltaTime = currentTime - lastFrameTime;
         lastFrameTime = currentTime;
@@ -79,4 +93,3 @@ void GLFWKeyCallback(GLFWwindow* window, int key, int scancode, int action, int 
             game.keys[key] = false;
     }
 }
-
