@@ -4,8 +4,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "Defs.h"
-#include "ResourceManager.hpp"
-#include "SpriteRenderer.hpp"
+#include "ResourceManager/ResourceManager.hpp"
+#include "Render/SpriteRenderer.hpp"
 
 class Game
 {

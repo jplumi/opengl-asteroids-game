@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Entity.hpp"
+#include "Entity/Entity.hpp"
 #include <vector>
 
 #define MAX_ENEMIES 10

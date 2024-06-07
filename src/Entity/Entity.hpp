@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Texture2D.hpp"
-#include "SpriteRenderer.hpp"
+#include "Render/Texture2D.hpp"
+#include "Render/SpriteRenderer.hpp"
 
 class Entity
 {

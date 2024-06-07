@@ -3,11 +3,12 @@ FLAGS := -Wall -std=c++11
 OUT := out/game
 LIBS_PATH := -Ldependencies/lib
 LIBS := -lglfw.3.4
-INCLUDES := -Idependencies/include
-TARGETS := src/*.cpp src/glad.c
+INCLUDES := -Idependencies/include -Isrc
+SRC := src
+CPP_SRCS=$(shell find $(SRC) -name "*.cpp")
 
 build:
-	$(CC) $(FLAGS) $(INCLUDES) $(TARGETS) -o $(OUT) $(LIBS_PATH) $(LIBS)
+	$(CC) $(FLAGS) src/glad.c $(CPP_SRCS) $(INCLUDES) -o $(OUT) $(LIBS_PATH) $(LIBS)
 
 run:
 	./$(OUT)

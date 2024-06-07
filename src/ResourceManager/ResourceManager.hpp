@@ -1,8 +1,8 @@
 #pragma once
 
 #include <map>
-#include "Shader.hpp"
-#include "Texture2D.hpp"
+#include "Render/Shader.hpp"
+#include "Render/Texture2D.hpp"
 
 class ResourceManager
 {

@@ -1,5 +1,5 @@
 #include "EnemiesManager.hpp"
-#include "ResourceManager.hpp"
+#include "ResourceManager/ResourceManager.hpp"
 #include "Defs.h"
 
 EnemiesManager::~EnemiesManager()

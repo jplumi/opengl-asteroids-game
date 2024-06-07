@@ -1,6 +1,6 @@
 #include "Game.hpp"
-#include "Player.hpp"
-#include "EnemiesManager.hpp"
+#include "Player/Player.hpp"
+#include "Enemies/EnemiesManager.hpp"
 
 Player *player;
 EnemiesManager* enemiesManager;

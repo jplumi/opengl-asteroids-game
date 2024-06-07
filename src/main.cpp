@@ -1,8 +1,6 @@
 #include <iostream>
 #include <glm/glm.hpp>
 #include "Game.hpp"
-#include "Shader.hpp"
-#include "ResourceManager.hpp"
 #include <chrono>
 #include <thread>
 
