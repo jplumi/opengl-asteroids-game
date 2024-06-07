@@ -8,15 +8,19 @@
 class EnemiesManager
 {
 public:
-    std::vector<Entity*> enemies;
-public:
+    EnemiesManager(Game* game);
     ~EnemiesManager();
 
     void Init();
     void UpdateEnemies(float deltaTime);
     void RenderEnemies(SpriteRenderer* renderer);
 
+    const std::vector<Entity*>* GetEnemies() const;
+
 private:
+    Game* m_game;
+
+    std::vector<Entity*> m_enemies;
     int m_enemiesIndex = 0;
 
     const float m_spawnInterval = 1.0f;

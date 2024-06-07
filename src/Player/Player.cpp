@@ -1,5 +1,6 @@
 #include "Player/Player.hpp"
-#include "Game.hpp"
+
+#include "Enemies/EnemiesManager.hpp"
 #include "Util.h"
 
 void Player::AddForce(glm::vec2 f)
@@ -25,7 +26,7 @@ void Player::Update(float deltaTime)
     Entity::Update(deltaTime);
 
     // check input
-    if(Game::keys[GLFW_KEY_W])
+    if(m_game->keys[GLFW_KEY_W])
     {
         AddForce(forward * deltaTime * speed);
         // thrust flickering efffect
@@ -39,17 +40,17 @@ void Player::Update(float deltaTime)
     {
         m_showThrust = false;
     }
-    if(Game::keys[GLFW_KEY_A])
-        Rotate(-250 * deltaTime);
-    if(Game::keys[GLFW_KEY_D])
-        Rotate(250 * deltaTime);
+    if(m_game->keys[GLFW_KEY_A])
+        Rotate(-275 * deltaTime);
+    if(m_game->keys[GLFW_KEY_D])
+        Rotate(275 * deltaTime);
     
     // apply force
     position += m_force * deltaTime;
 
     // drag
-    m_force.x = lerp(m_force.x, 0, deltaTime * 0.5f);
-    m_force.y = lerp(m_force.y, 0, deltaTime * 0.5f);
+    m_force.x = lerp(m_force.x, 0, deltaTime * 0.75f);
+    m_force.y = lerp(m_force.y, 0, deltaTime * 0.75f);
 }
 
 void Player::UpdateVectors()
@@ -66,4 +67,10 @@ void Player::RenderThrust(SpriteRenderer* renderer)
 {
     glm::vec2 thrustPos = position - forward * 11.5f;
     renderer->DrawSprite(thrustTex, thrustPos, size, rotation);
+}
+
+bool Player::CheckCollision()
+{
+    // for(Entity* e : )
+    return false;
 }

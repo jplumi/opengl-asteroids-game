@@ -4,6 +4,8 @@
         "string": "cpp",
         "__node_handle": "cpp",
         "vector": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "__config": "cpp",
+        "locale": "cpp"
     }
 }

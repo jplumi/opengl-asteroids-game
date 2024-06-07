@@ -1,15 +1,8 @@
 #include "Entity.hpp"
+
 #include "Defs.h"
 
-Entity::Entity() {};
-
-Entity::Entity(
-        Texture2D texture,
-        glm::vec2 position,
-        glm::vec2 size,
-        float rotation,
-        float speed
-) : texture(texture), position(position), size(size), rotation(rotation), speed(speed) {}
+Entity::Entity(Game* game) : m_game(game) {}
 
 void Entity::Render(SpriteRenderer *renderer)
 {

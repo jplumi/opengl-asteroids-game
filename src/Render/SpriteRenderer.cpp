@@ -51,7 +51,7 @@ void SpriteRenderer::InitRenderData()
 void SpriteRenderer::DrawSprite(const Texture2D &texture, glm::vec2 position, 
         glm::vec2 size,
         float rotate, 
-        glm::vec3 color)
+        glm::vec3 color) const
 {
     glBindVertexArray(_quadVAO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _EBO);

@@ -55,7 +55,7 @@ Shader::~Shader()
     glDeleteProgram(ID);
 }
 
-Shader Shader::Use()
+Shader Shader::Use() const
 {
     glUseProgram(ID);
     return *this;

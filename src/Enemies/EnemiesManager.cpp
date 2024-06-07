@@ -2,11 +2,13 @@
 #include "ResourceManager/ResourceManager.hpp"
 #include "Defs.h"
 
+EnemiesManager::EnemiesManager(Game* game) : m_game(game) {}
+
 EnemiesManager::~EnemiesManager()
 {
-    for(Entity* e : enemies)
+    for(Entity* e : m_enemies)
         delete e;
-    enemies.clear();
+    m_enemies.clear();
 }
 
 void EnemiesManager::Init()
@@ -21,7 +23,7 @@ void EnemiesManager::SpawnAsteroid()
 {
     if(m_enemiesIndex < MAX_ENEMIES)
     {
-        Entity* newEnemy = new Entity();
+        Entity* newEnemy = new Entity(m_game);
 
         // random sprite
         newEnemy->texture = ResourceManager::GetTexture2D(
@@ -52,7 +54,7 @@ void EnemiesManager::SpawnAsteroid()
         // random speed
         newEnemy->speed = 20 + rand() % 200;
 
-        enemies.push_back(newEnemy);
+        m_enemies.push_back(newEnemy);
         m_enemiesIndex++;
     }
 }
@@ -66,7 +68,7 @@ void EnemiesManager::UpdateEnemies(float deltaTime)
         m_currSpawnTime = 0.0f;
     }
 
-    for(Entity* e : enemies)
+    for(Entity* e : m_enemies)
     {
         e->Update(deltaTime);
         e->position += e->forward * deltaTime * e->speed;
@@ -77,7 +79,10 @@ void EnemiesManager::RenderEnemies(SpriteRenderer* renderer)
 {
     for(int i = 0; i < m_enemiesIndex; i++)
     {
-        Entity* e = enemies[i];
+        Entity* e = m_enemies[i];
         renderer->DrawSprite(e->texture, e->position, e->size, e->rotation);
     }
 }
+
+const std::vector<Entity*>* EnemiesManager::GetEnemies() const { return &m_enemies; }
+

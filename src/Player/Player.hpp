@@ -24,4 +24,5 @@ private:
 private:
     void UpdateVectors();
     void RenderThrust(SpriteRenderer* renderer);
+    bool CheckCollision();
 };
