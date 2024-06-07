@@ -44,11 +44,17 @@ void Game::Init()
 void Game::HandleEvents()
 {
     glfwPollEvents();
+    if(!m_playerIsAlive && keys[GLFW_KEY_SPACE])
+    {
+        player->Reset();
+        m_playerIsAlive = true;
+    }
 }
 
 void Game::Update(float deltaTime)
 {
-    player->Update(deltaTime);
+    if(m_playerIsAlive)
+        player->Update(deltaTime);
     enemiesManager->UpdateEnemies(deltaTime);
 }
 
@@ -57,8 +63,16 @@ void Game::Render()
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    player->Render(renderer);
+    if(m_playerIsAlive)
+        player->Render(renderer);
+
     enemiesManager->RenderEnemies(renderer);
 
     glfwSwapBuffers(window);
 }
+
+void Game::PlayerDeath()
+{
+    m_playerIsAlive = false;
+}
+

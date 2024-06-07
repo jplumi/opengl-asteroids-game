@@ -15,7 +15,7 @@ public:
     void UpdateEnemies(float deltaTime);
     void RenderEnemies(SpriteRenderer* renderer);
 
-    const std::vector<Entity*>* GetEnemies() const;
+    const std::vector<Entity*>& GetEnemies() const;
 
 private:
     Game* m_game;

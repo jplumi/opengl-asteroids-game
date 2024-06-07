@@ -11,6 +11,7 @@ public:
 
     void AddForce(glm::vec2 f);
     void Rotate(float angle);
+    void Reset();
 
     void Render(SpriteRenderer* renderer) override;
     void Update(float deltaTime) override;
@@ -24,5 +25,5 @@ private:
 private:
     void UpdateVectors();
     void RenderThrust(SpriteRenderer* renderer);
-    bool CheckCollision();
+    void CheckCollision();
 };

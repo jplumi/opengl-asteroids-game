@@ -84,5 +84,5 @@ void EnemiesManager::RenderEnemies(SpriteRenderer* renderer)
     }
 }
 
-const std::vector<Entity*>* EnemiesManager::GetEnemies() const { return &m_enemies; }
+const std::vector<Entity*>& EnemiesManager::GetEnemies() const { return m_enemies; }
 

@@ -22,4 +22,8 @@ public:
     void HandleEvents();
     void Update(float deltaTime);
     void Render();
+    void PlayerDeath();
+
+private:
+    bool m_playerIsAlive = true;
 };

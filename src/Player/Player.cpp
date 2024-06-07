@@ -2,6 +2,7 @@
 
 #include "Enemies/EnemiesManager.hpp"
 #include "Util.h"
+#include "Defs.h"
 
 void Player::AddForce(glm::vec2 f)
 {
@@ -16,7 +17,7 @@ void Player::Rotate(float angle)
 
 void Player::Render(SpriteRenderer* renderer)
 {
-    renderer->DrawSprite(texture, position, size, rotation);
+    Entity::Render(renderer);
     if(m_showThrust)
         RenderThrust(renderer);
 }
@@ -51,6 +52,8 @@ void Player::Update(float deltaTime)
     // drag
     m_force.x = lerp(m_force.x, 0, deltaTime * 0.75f);
     m_force.y = lerp(m_force.y, 0, deltaTime * 0.75f);
+
+    CheckCollision();
 }
 
 void Player::UpdateVectors()
@@ -69,8 +72,19 @@ void Player::RenderThrust(SpriteRenderer* renderer)
     renderer->DrawSprite(thrustTex, thrustPos, size, rotation);
 }
 
-bool Player::CheckCollision()
+void Player::CheckCollision()
 {
-    // for(Entity* e : )
-    return false;
+    EnemiesManager* manager = m_game->enemiesManager;
+    for(Entity* e : manager->GetEnemies())
+    {
+        if(checkCollision(position, size, e->position, e->size))
+            m_game->PlayerDeath();
+    }
+}
+
+void Player::Reset()
+{
+    position = glm::vec2(WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
+    rotation = -90;
+    m_force = glm::vec2(0.0f);
 }
