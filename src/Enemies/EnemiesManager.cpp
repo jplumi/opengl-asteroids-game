@@ -13,10 +13,9 @@ EnemiesManager::~EnemiesManager()
 
 void EnemiesManager::Init()
 {
-    ResourceManager::LoadTexture2D("asteroid1", "/Users/joaolumi/Documents/cpp/asteroids/resources/big_asteroid_1.png", true);
-    ResourceManager::LoadTexture2D("asteroid2", "/Users/joaolumi/Documents/cpp/asteroids/resources/big_asteroid_2.png", true);
-    ResourceManager::LoadTexture2D("asteroid3", "/Users/joaolumi/Documents/cpp/asteroids/resources/big_asteroid_3.png", true);
-    SpawnAsteroid();
+    ResourceManager::LoadTexture2D("asteroid1", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/big_asteroid_1.png", true);
+    ResourceManager::LoadTexture2D("asteroid2", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/big_asteroid_2.png", true);
+    ResourceManager::LoadTexture2D("asteroid3", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/big_asteroid_3.png", true);
 }
 
 void EnemiesManager::SpawnAsteroid()

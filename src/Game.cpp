@@ -15,8 +15,8 @@ Game::~Game()
 void Game::Init()
 {
     Shader baseShader = ResourceManager::LoadShader("baseShader",
-        "/Users/joaolumi/Documents/cpp/asteroids/resources/base.vert",
-        "/Users/joaolumi/Documents/cpp/asteroids/resources/base.frag");
+        "/Users/joaolumi/Documents/cpp/asteroids/resources/shaders/base.vert",
+        "/Users/joaolumi/Documents/cpp/asteroids/resources/shaders/base.frag");
 
     glm::mat4 projection = glm::ortho(0.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT, 0.0f, -1.0f, 1.0f);
     baseShader.Use();
@@ -27,7 +27,7 @@ void Game::Init()
 
     // init player
     glm::vec2 playerPos = glm::vec2(WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
-    Texture2D shipTex = ResourceManager::LoadTexture2D("ship", "/Users/joaolumi/Documents/cpp/asteroids/resources/ship.png", true);
+    Texture2D shipTex = ResourceManager::LoadTexture2D("ship", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/ship.png", true);
 
     player = new Player(this);
     player->texture = shipTex;
@@ -35,7 +35,7 @@ void Game::Init()
     player->size = glm::vec2(50);
     player->Rotate(-90);
     player->speed = 500.0f;
-    player->thrustTex = ResourceManager::LoadTexture2D("shipThrust", "/Users/joaolumi/Documents/cpp/asteroids/resources/ship_thrust.png", true);
+    player->thrustTex = ResourceManager::LoadTexture2D("shipThrust", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/ship_thrust.png", true);
 
     enemiesManager = new EnemiesManager(this);
     enemiesManager->Init();

@@ -86,5 +86,6 @@ void Player::Reset()
 {
     position = glm::vec2(WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
     rotation = -90;
+    forward = glm::vec2(0.0f, -1.0f);
     m_force = glm::vec2(0.0f);
 }
