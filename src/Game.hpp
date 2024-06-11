@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "Render/SpriteRenderer.hpp"
+#include "Render/Renderer.hpp"
 
 class Player;
 class EnemiesManager;
@@ -13,7 +13,7 @@ public:
     ~Game();
 
     GLFWwindow* window;
-    SpriteRenderer *renderer;
+    Renderer *renderer;
     Player *player;
     EnemiesManager* enemiesManager;
     bool keys[1024];

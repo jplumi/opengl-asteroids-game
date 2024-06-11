@@ -14,23 +14,14 @@ Game::~Game()
 
 void Game::Init()
 {
-    Shader baseShader = ResourceManager::LoadShader("baseShader",
-        "/Users/joaolumi/Documents/cpp/asteroids/resources/shaders/base.vert",
-        "/Users/joaolumi/Documents/cpp/asteroids/resources/shaders/base.frag");
-
-    glm::mat4 projection = glm::ortho(0.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT, 0.0f, -1.0f, 1.0f);
-    baseShader.Use();
-    baseShader.SetInt("image", 0);
-    baseShader.SetMat4("projection", projection);
-
-    renderer = new SpriteRenderer(baseShader);
+    renderer = new Renderer();
+    renderer->InitRenderData();
 
     // init player
     glm::vec2 playerPos = glm::vec2(WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
-    Texture2D shipTex = ResourceManager::LoadTexture2D("ship", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/ship.png", true);
 
     player = new Player(this);
-    player->texture = shipTex;
+    player->texture = ResourceManager::LoadTexture2D("ship", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/ship.png", true);
     player->position = playerPos;
     player->size = glm::vec2(50);
     player->Rotate(-90);
@@ -67,6 +58,8 @@ void Game::Render()
         player->Render(renderer);
 
     enemiesManager->RenderEnemies(renderer);
+
+    renderer->RenderCircle(glm::vec2(200), glm::vec2(500), glm::vec3(0.0f, 0.8f, 0.0f), 0.01f);
 
     glfwSwapBuffers(window);
 }

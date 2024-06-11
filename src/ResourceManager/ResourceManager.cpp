@@ -3,10 +3,10 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
-std::map<std::string, Shader> ResourceManager::_shaders;
-std::map<std::string, Texture2D> ResourceManager::_textures2D;
+std::map<std::string, Shader*> ResourceManager::m_shaders;
+std::map<std::string, Texture2D*> ResourceManager::m_textures2D;
 
-Shader ResourceManager::LoadShader(const std::string name, const char* vertexPath, const char* fragmentPath)
+Shader* ResourceManager::LoadShader(const std::string name, const char* vertexPath, const char* fragmentPath)
 {
     std::string vertexCode;
     std::string fragmentCode;
@@ -38,50 +38,49 @@ Shader ResourceManager::LoadShader(const std::string name, const char* vertexPat
     const char* vShaderCode = vertexCode.c_str();
     const char* fShaderCode = fragmentCode.c_str();
     
-    Shader shader;
-    shader.Compile(vShaderCode, fShaderCode);
+    Shader* shader = new Shader();
+    shader->Compile(vShaderCode, fShaderCode);
 
-    _shaders[name] = shader;
+    m_shaders[name] = shader;
 
     return shader;
 }
 
-Texture2D ResourceManager::LoadTexture2D(const std::string name, const char* path, bool alpha)
+Texture2D* ResourceManager::LoadTexture2D(const std::string name, const char* path, bool alpha)
 {
-    Texture2D texture;
+    Texture2D* texture = new Texture2D;
     if(alpha)
     {
-        texture.internalFormat = GL_RGBA;
-        texture.imageFormat = GL_RGBA;
+        texture->internalFormat = GL_RGBA;
+        texture->imageFormat = GL_RGBA;
     }
 
     int width, height, nrChannels;
     unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
 
-    texture.Generate(width, height, data);
+    texture->Generate(width, height, data);
 
     stbi_image_free(data);
 
-    _textures2D[name] = texture;
+    m_textures2D[name] = texture;
 
     return texture;
 }
 
-
-Shader ResourceManager::GetShader(const std::string name)
+Shader* ResourceManager::GetShader(const std::string name)
 {
-    return _shaders[name];
+    return m_shaders[name];
 }
 
-Texture2D ResourceManager::GetTexture2D(const std::string name)
+Texture2D* ResourceManager::GetTexture2D(const std::string name)
 {
-    return _textures2D[name];
+    return m_textures2D[name];
 }
 
 void ResourceManager::Clear()
 {
-    for(auto i : _shaders)
-        glDeleteProgram(i.second.ID);
-    for(auto i : _textures2D)
-        glDeleteTextures(1, &i.second.ID);
+    for(auto i : m_shaders)
+        glDeleteProgram(i.second->ID);
+    for(auto i : m_textures2D)
+        glDeleteTextures(1, &i.second->ID);
 }

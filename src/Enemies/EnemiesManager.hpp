@@ -13,7 +13,7 @@ public:
 
     void Init();
     void UpdateEnemies(float deltaTime);
-    void RenderEnemies(SpriteRenderer* renderer);
+    void RenderEnemies(Renderer* renderer);
 
     const std::vector<Entity*>& GetEnemies() const;
 

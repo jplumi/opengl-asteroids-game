@@ -1,7 +1,5 @@
 #pragma once
 
-#include <glad/glad.h>
-
 class Texture2D
 {
 public:
@@ -19,6 +17,7 @@ public:
     unsigned int filterMax;
 
     Texture2D();
+    ~Texture2D();
 
     void Generate(unsigned int width, unsigned int height, unsigned char* data);
     void Bind() const;

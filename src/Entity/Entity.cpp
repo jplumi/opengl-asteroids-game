@@ -4,9 +4,9 @@
 
 Entity::Entity(Game* game) : m_game(game) {}
 
-void Entity::Render(SpriteRenderer *renderer)
+void Entity::Render(Renderer *renderer)
 {
-    renderer->DrawSprite(texture, position, size, rotation);
+    renderer->RenderTexture2D(texture, position, size, rotation);
 }
 
 void Entity::Update(float deltaTime)

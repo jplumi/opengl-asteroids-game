@@ -74,12 +74,12 @@ void EnemiesManager::UpdateEnemies(float deltaTime)
     }
 }
 
-void EnemiesManager::RenderEnemies(SpriteRenderer* renderer)
+void EnemiesManager::RenderEnemies(Renderer* renderer)
 {
     for(int i = 0; i < m_enemiesIndex; i++)
     {
         Entity* e = m_enemies[i];
-        renderer->DrawSprite(e->texture, e->position, e->size, e->rotation);
+        renderer->RenderTexture2D(e->texture, e->position, e->size, e->rotation);
     }
 }
 

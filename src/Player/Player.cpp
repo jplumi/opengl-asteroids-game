@@ -15,7 +15,7 @@ void Player::Rotate(float angle)
     UpdateVectors();
 }
 
-void Player::Render(SpriteRenderer* renderer)
+void Player::Render(Renderer* renderer)
 {
     Entity::Render(renderer);
     if(m_showThrust)
@@ -66,10 +66,10 @@ void Player::UpdateVectors()
     forward = glm::normalize(front);
 }
 
-void Player::RenderThrust(SpriteRenderer* renderer)
+void Player::RenderThrust(Renderer* renderer)
 {
     glm::vec2 thrustPos = position - forward * 11.5f;
-    renderer->DrawSprite(thrustTex, thrustPos, size, rotation);
+    renderer->RenderTexture2D(thrustTex, thrustPos, size, rotation);
 }
 
 void Player::CheckCollision()

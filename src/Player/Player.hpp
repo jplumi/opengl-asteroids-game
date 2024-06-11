@@ -5,7 +5,7 @@
 class Player : public Entity
 {
 public:
-    Texture2D thrustTex;
+    Texture2D* thrustTex;
 public:
     using Entity::Entity;
 
@@ -13,7 +13,7 @@ public:
     void Rotate(float angle);
     void Reset();
 
-    void Render(SpriteRenderer* renderer) override;
+    void Render(Renderer* renderer) override;
     void Update(float deltaTime) override;
 
 private:
@@ -24,6 +24,6 @@ private:
     bool m_showThrust = false;
 private:
     void UpdateVectors();
-    void RenderThrust(SpriteRenderer* renderer);
+    void RenderThrust(Renderer* renderer);
     void CheckCollision();
 };

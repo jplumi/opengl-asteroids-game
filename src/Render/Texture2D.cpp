@@ -1,5 +1,7 @@
 #include "Texture2D.hpp"
 
+#include <glad/glad.h>
+
 Texture2D::Texture2D() : 
     width(0), height(0), 
     internalFormat(GL_RGB), imageFormat(GL_RGB),
@@ -9,6 +11,10 @@ Texture2D::Texture2D() :
     glGenTextures(1, &ID);
 };
 
+Texture2D::~Texture2D()
+{
+    glDeleteTextures(1, &ID);
+}
 
 void Texture2D::Generate(unsigned int width, unsigned int height, unsigned char* data)
 {
