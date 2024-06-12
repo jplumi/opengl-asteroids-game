@@ -10,7 +10,6 @@ void Shader::Compile(const char* vSource, const char* fSource)
     vertex = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertex, 1, &vSource, NULL);
     glCompileShader(vertex);
-    // print compile errors if any
     glGetShaderiv(vertex, GL_COMPILE_STATUS, &success);
     if(!success)
     {
@@ -22,7 +21,6 @@ void Shader::Compile(const char* vSource, const char* fSource)
     fragment = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragment, 1, &fSource, NULL);
     glCompileShader(fragment);
-    // print compile errors if any
     glGetShaderiv(fragment, GL_COMPILE_STATUS, &success);
     if(!success)
     {
@@ -31,12 +29,11 @@ void Shader::Compile(const char* vSource, const char* fSource)
     };
     
     
-    // shader Program
     ID = glCreateProgram();
     glAttachShader(ID, vertex);
     glAttachShader(ID, fragment);
     glLinkProgram(ID);
-    // print linking errors if any
+    
     glGetProgramiv(ID, GL_LINK_STATUS, &success);
     if(!success)
     {
@@ -44,7 +41,6 @@ void Shader::Compile(const char* vSource, const char* fSource)
         std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
     }
     
-    // delete the shaders as they're linked into our program now and no longer necessary
     glDeleteShader(vertex);
     glDeleteShader(fragment);
 }
@@ -55,10 +51,9 @@ Shader::~Shader()
     glDeleteProgram(ID);
 }
 
-Shader Shader::Use() const
+void Shader::Use() const
 {
     glUseProgram(ID);
-    return *this;
 }
 
 void Shader::SetBool(const std::string &name, bool value) const

@@ -77,7 +77,7 @@ void Player::CheckCollision()
     EnemiesManager* manager = m_game->enemiesManager;
     for(Entity* e : manager->GetEnemies())
     {
-        if(checkCollision(position, size, e->position, e->size))
+        if(checkCircleCollision(position, colliderRadius, e->position, e->colliderRadius))
             m_game->PlayerDeath();
     }
 }

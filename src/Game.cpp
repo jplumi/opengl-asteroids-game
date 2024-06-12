@@ -19,11 +19,13 @@ void Game::Init()
 
     // init player
     glm::vec2 playerPos = glm::vec2(WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
+    int playerSize = 50;
 
     player = new Player(this);
     player->texture = ResourceManager::LoadTexture2D("ship", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/ship.png", true);
     player->position = playerPos;
-    player->size = glm::vec2(50);
+    player->size = glm::vec2(playerSize);
+    player->colliderRadius = playerSize/2;
     player->Rotate(-90);
     player->speed = 500.0f;
     player->thrustTex = ResourceManager::LoadTexture2D("shipThrust", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/ship_thrust.png", true);
@@ -59,8 +61,7 @@ void Game::Render()
 
     enemiesManager->RenderEnemies(renderer);
 
-    renderer->RenderCircle(glm::vec2(200), glm::vec2(500), glm::vec3(0.0f, 0.8f, 0.0f), 0.01f);
-
+    glBindVertexArray(0);
     glfwSwapBuffers(window);
 }
 

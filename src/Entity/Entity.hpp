@@ -15,6 +15,7 @@ public:
     glm::vec2 size;
     float rotation;
     float speed;
+    float colliderRadius;
     glm::vec2 forward = glm::vec2(1.0f, 0.0f);
 public:
     virtual void Render(Renderer *renderer);

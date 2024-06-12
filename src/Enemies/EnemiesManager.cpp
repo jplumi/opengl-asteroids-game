@@ -31,6 +31,7 @@ void EnemiesManager::SpawnAsteroid()
         // random size
         int randomSize = m_asteroidSizeOptions[rand() % 3];
         newEnemy->size = glm::vec2(randomSize);
+        newEnemy->colliderRadius = randomSize/2;
 
         // random position
         if(rand() % 2) // right side
@@ -79,7 +80,7 @@ void EnemiesManager::RenderEnemies(Renderer* renderer)
     for(int i = 0; i < m_enemiesIndex; i++)
     {
         Entity* e = m_enemies[i];
-        renderer->RenderTexture2D(e->texture, e->position, e->size, e->rotation);
+        e->Render(renderer);
     }
 }
 

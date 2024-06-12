@@ -14,7 +14,7 @@ Renderer::~Renderer()
 void Renderer::InitRenderData()
 {
     float vertices[] = {
-        // pos      // tex
+        // pos      // tex coords
         1.0f, 1.0f, 1.0f, 1.0f, // top right
         1.0f, 0.0f, 1.0f, 0.0f, // bottom right
         0.0f, 0.0f, 0.0f, 0.0f, // bottom left
@@ -51,8 +51,8 @@ void Renderer::InitRenderData()
     glm::mat4 projection = glm::ortho(0.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT, 0.0f, -1.0f, 1.0f);
 
     m_texShader->Use();
-    m_texShader->SetInt("image", 0);
     m_texShader->SetMat4("projection", projection);
+    m_texShader->SetInt("image", 0);
 
     m_circleShader = ResourceManager::LoadShader("circleShader",
         "/Users/joaolumi/Documents/cpp/asteroids/resources/shaders/circle.vert",
@@ -68,6 +68,9 @@ void Renderer::RenderTexture2D(Texture2D* texture, glm::vec2 position,
         glm::vec3 color) const
 {
     m_texShader->Use();
+
+    position.x -= size.x/2;
+    position.y -= size.y/2;
 
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(position, 1.0f));
@@ -87,20 +90,18 @@ void Renderer::RenderTexture2D(Texture2D* texture, glm::vec2 position,
 
     glBindVertexArray(m_quadVAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
 }
 
-void Renderer::RenderCircle(glm::vec2 position, glm::vec2 size, glm::vec3 color, float thickness) const
+void Renderer::RenderCircle(glm::vec2 position, float radius, glm::vec3 color, float thickness) const
 {
     m_circleShader->Use();
 
+    position.x -= radius;
+    position.y -= radius;
+
     glm::mat4 model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(position, 1.0f));
-
-    model = glm::scale(model, glm::vec3(size, 1.0f));
-
-    // glActiveTexture(GL_TEXTURE0);
-    // glBindTexture(GL_TEXTURE_2D, 0);
+    model = glm::scale(model, glm::vec3(radius*2, radius*2, 1.0f));
 
     m_circleShader->SetMat4("model", model);
     m_circleShader->SetVec3("objectColor", color.x, color.y, color.z);
@@ -108,5 +109,4 @@ void Renderer::RenderCircle(glm::vec2 position, glm::vec2 size, glm::vec3 color,
 
     glBindVertexArray(m_quadVAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
 }
