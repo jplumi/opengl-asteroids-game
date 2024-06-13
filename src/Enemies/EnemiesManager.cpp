@@ -2,6 +2,9 @@
 #include "ResourceManager/ResourceManager.hpp"
 #include "Defs.h"
 
+bool checkCircleCollision(const glm::vec2 &aPos, float aRadius,
+                          const glm::vec2 &bPos, float bRadius);
+
 EnemiesManager::EnemiesManager(Game* game) : m_game(game) {}
 
 EnemiesManager::~EnemiesManager()
@@ -85,4 +88,15 @@ void EnemiesManager::RenderEnemies(Renderer* renderer)
 }
 
 const std::vector<Entity*>& EnemiesManager::GetEnemies() const { return m_enemies; }
+
+Entity* EnemiesManager::CheckCollision(Entity* obj) const
+{
+    for(Entity* e : m_enemies)
+    {
+        if(checkCircleCollision(obj->position, obj->colliderRadius, e->position, e->colliderRadius))
+            return e;
+    }
+    return nullptr;
+}
+
 

@@ -3,6 +3,7 @@
 #include "Defs.h"
 #include "Game.hpp"
 #include "ResourceManager/ResourceManager.hpp"
+#include "Util.h"
 #include <chrono>
 #include <thread>
 

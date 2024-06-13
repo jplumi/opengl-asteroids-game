@@ -17,6 +17,8 @@ public:
 
     const std::vector<Entity*>& GetEnemies() const;
 
+    Entity* CheckCollision(Entity* obj) const;
+
 private:
     Game* m_game;
 

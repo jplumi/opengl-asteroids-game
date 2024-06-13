@@ -8,6 +8,9 @@ SRC := src
 CPP_SRCS=$(shell find $(SRC) -name "*.cpp")
 
 build:
+	$(CC) $(FLAGS) src/glad.c $(CPP_SRCS) $(INCLUDES) -o $(OUT) $(LIBS_PATH) $(LIBS) -DDEV_BUILD
+
+release:
 	$(CC) $(FLAGS) src/glad.c $(CPP_SRCS) $(INCLUDES) -o $(OUT) $(LIBS_PATH) $(LIBS)
 
 run:

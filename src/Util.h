@@ -22,7 +22,5 @@ bool checkCollision(const glm::vec2 &aPos, const glm::vec2 &aSize, const glm::ve
 bool checkCircleCollision(const glm::vec2 &aPos, float aRadius,
                           const glm::vec2 &bPos, float bRadius)
 {
-    glm::vec2 difference = aPos - bPos;
-    // std::cout << difference.x << ", " << difference.y << '\n';
-    return glm::length(difference) < bRadius + aRadius;
+    return glm::length(aPos - bPos) < bRadius + aRadius;
 }

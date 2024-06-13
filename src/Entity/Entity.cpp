@@ -2,18 +2,20 @@
 
 #include "Defs.h"
 
-Entity::Entity(Game* game) : m_game(game) {}
+unsigned int Entity::m_idCount = 0;
+
+Entity::Entity(Game* game) : m_game(game) { id = m_idCount++; }
 
 void Entity::Render(Renderer *renderer)
 {
     renderer->RenderTexture2D(texture, position, size, rotation);
     
     // render collider
-    renderer->RenderCircle(
-        position,
-        colliderRadius,
-        glm::vec3(0.0f, 0.8f, 0.0f),
-        0.01f);
+    // renderer->RenderCircle(
+    //     position,
+    //     colliderRadius,
+    //     glm::vec3(0.0f, 0.8f, 0.0f),
+    //     0.01f);
 }
 
 void Entity::Update(float deltaTime)

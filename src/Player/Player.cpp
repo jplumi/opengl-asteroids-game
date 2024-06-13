@@ -1,8 +1,9 @@
 #include "Player/Player.hpp"
 
 #include "Enemies/EnemiesManager.hpp"
-#include "Util.h"
 #include "Defs.h"
+
+float lerp(float a, float b, float t);
 
 void Player::AddForce(glm::vec2 f)
 {
@@ -74,12 +75,8 @@ void Player::RenderThrust(Renderer* renderer)
 
 void Player::CheckCollision()
 {
-    EnemiesManager* manager = m_game->enemiesManager;
-    for(Entity* e : manager->GetEnemies())
-    {
-        if(checkCircleCollision(position, colliderRadius, e->position, e->colliderRadius))
-            m_game->PlayerDeath();
-    }
+    if(m_game->enemiesManager->CheckCollision(this) != nullptr)
+        m_game->PlayerDeath();
 }
 
 void Player::Reset()
