@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Entity/Entity.hpp"
-#include <vector>
+#include <map>
 
 #define MAX_ENEMIES 10
 
@@ -14,15 +14,14 @@ public:
     void Init();
     void UpdateEnemies(float deltaTime);
     void RenderEnemies(Renderer* renderer);
-
-    const std::vector<Entity*>& GetEnemies() const;
+    void DestroyEnemy(unsigned int id);
 
     Entity* CheckCollision(Entity* obj) const;
 
 private:
     Game* m_game;
 
-    std::vector<Entity*> m_enemies;
+    std::unordered_map<unsigned int, Entity*> m_enemies;
     int m_enemiesIndex = 0;
 
     const float m_spawnInterval = 1.0f;

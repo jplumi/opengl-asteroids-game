@@ -9,8 +9,8 @@ EnemiesManager::EnemiesManager(Game* game) : m_game(game) {}
 
 EnemiesManager::~EnemiesManager()
 {
-    for(Entity* e : m_enemies)
-        delete e;
+    for(auto e : m_enemies)
+        delete e.second;
     m_enemies.clear();
 }
 
@@ -57,7 +57,7 @@ void EnemiesManager::SpawnAsteroid()
         // random speed
         newEnemy->speed = 20 + rand() % 200;
 
-        m_enemies.push_back(newEnemy);
+        m_enemies.emplace(newEnemy->id, newEnemy);
         m_enemiesIndex++;
     }
 }
@@ -71,30 +71,60 @@ void EnemiesManager::UpdateEnemies(float deltaTime)
         m_currSpawnTime = 0.0f;
     }
 
-    for(Entity* e : m_enemies)
+    for(auto it = m_enemies.begin(); it != m_enemies.end();)
     {
-        e->Update(deltaTime);
-        e->position += e->forward * deltaTime * e->speed;
+        Entity* e = it->second;
+        if(e != nullptr)
+        {
+            e->Update(deltaTime);
+            e->position += e->forward * deltaTime * e->speed;
+            ++it;
+        } 
+        else
+        {
+            it = m_enemies.erase(it);
+        }
     }
 }
 
 void EnemiesManager::RenderEnemies(Renderer* renderer)
 {
-    for(int i = 0; i < m_enemiesIndex; i++)
+    for(auto it = m_enemies.begin(); it != m_enemies.end();)
     {
-        Entity* e = m_enemies[i];
-        e->Render(renderer);
+        if(it->second)
+        {
+            it->second->Render(renderer);
+            ++it;
+        }
+        else
+        {
+            it = m_enemies.erase(it);
+        }
     }
 }
 
-const std::vector<Entity*>& EnemiesManager::GetEnemies() const { return m_enemies; }
+void EnemiesManager::DestroyEnemy(unsigned int id)
+{
+    auto it = m_enemies.find(id);
+    if(it != m_enemies.end())
+    {
+        delete it->second;
+        it->second = nullptr;
+    }
+}
 
 Entity* EnemiesManager::CheckCollision(Entity* obj) const
 {
-    for(Entity* e : m_enemies)
+    for(auto it = m_enemies.begin(); it != m_enemies.end(); ++it)
     {
-        if(checkCircleCollision(obj->position, obj->colliderRadius, e->position, e->colliderRadius))
-            return e;
+        if(it->second != nullptr)
+        {
+            Entity* enemy = it->second;
+            if(checkCircleCollision(obj->position, obj->colliderRadius, enemy->position, enemy->colliderRadius))
+            {
+                return enemy;
+            }
+        }
     }
     return nullptr;
 }

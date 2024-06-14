@@ -6,6 +6,7 @@
 
 class Player;
 class EnemiesManager;
+class ShotsManager;
 
 class Game
 {
@@ -16,6 +17,7 @@ public:
     Renderer *renderer;
     Player *player;
     EnemiesManager* enemiesManager;
+    ShotsManager* shotsManager;
     bool keys[1024];
 public:
     void Init();

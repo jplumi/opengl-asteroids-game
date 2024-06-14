@@ -22,8 +22,13 @@ private:
     const float m_thrustFlickTime = 0.02f;
     float m_thrustCurrTime = 0.0f;
     bool m_showThrust = false;
+
+    bool m_canShoot = true;
+    float m_shootInterval = 0.5f;
+    float m_shootPassedTime = 0.0f;
 private:
     void UpdateVectors();
     void RenderThrust(Renderer* renderer);
     void CheckCollision();
+    void HandleShoot(float deltaTime);
 };

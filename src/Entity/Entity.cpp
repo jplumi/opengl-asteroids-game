@@ -4,7 +4,10 @@
 
 unsigned int Entity::m_idCount = 0;
 
-Entity::Entity(Game* game) : m_game(game) { id = m_idCount++; }
+Entity::Entity(Game* game) : m_game(game)
+{ 
+    id = m_idCount++;
+}
 
 void Entity::Render(Renderer *renderer)
 {

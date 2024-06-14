@@ -1,6 +1,7 @@
 #include "Player/Player.hpp"
 
 #include "Enemies/EnemiesManager.hpp"
+#include "Shots/ShotsManager.hpp"
 #include "Defs.h"
 
 float lerp(float a, float b, float t);
@@ -46,6 +47,8 @@ void Player::Update(float deltaTime)
         Rotate(-275 * deltaTime);
     if(m_game->keys[GLFW_KEY_D])
         Rotate(275 * deltaTime);
+
+    HandleShoot(deltaTime);
     
     // apply force
     position += m_force * deltaTime;
@@ -86,3 +89,23 @@ void Player::Reset()
     forward = glm::vec2(0.0f, -1.0f);
     m_force = glm::vec2(0.0f);
 }
+
+void Player::HandleShoot(float deltaTime)
+{
+    if(m_canShoot && m_game->keys[GLFW_KEY_SPACE])
+    {
+        m_game->shotsManager->SpawnShot(ShotType::PLAYER, position, forward);
+        m_canShoot = false;
+    }
+
+    if(!m_canShoot)
+    {
+        m_shootPassedTime += deltaTime;
+        if(m_shootPassedTime >= m_shootInterval)
+        {
+            m_canShoot = true;
+            m_shootPassedTime = 0.0f;
+        }
+    }
+}
+

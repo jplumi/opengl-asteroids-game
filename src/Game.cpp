@@ -4,12 +4,14 @@
 #include "ResourceManager/ResourceManager.hpp"
 #include "Player/Player.hpp"
 #include "Enemies/EnemiesManager.hpp"
+#include "Shots/ShotsManager.hpp"
 
 Game::~Game()
 {
     delete renderer;
     delete player;
     delete enemiesManager;
+    delete shotsManager;
 }
 
 void Game::Init()
@@ -32,6 +34,8 @@ void Game::Init()
 
     enemiesManager = new EnemiesManager(this);
     enemiesManager->Init();
+
+    shotsManager = new ShotsManager(this);
 }
 
 void Game::HandleEvents()
@@ -48,7 +52,9 @@ void Game::Update(float deltaTime)
 {
     if(m_playerIsAlive)
         player->Update(deltaTime);
+
     enemiesManager->UpdateEnemies(deltaTime);
+    shotsManager->UpdateShots(deltaTime);
 }
 
 void Game::Render()
@@ -60,6 +66,7 @@ void Game::Render()
         player->Render(renderer);
 
     enemiesManager->RenderEnemies(renderer);
+    shotsManager->RenderShots(renderer);
 
     glBindVertexArray(0);
     glfwSwapBuffers(window);

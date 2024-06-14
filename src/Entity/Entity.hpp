@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Render/Texture2D.hpp"
-#include "Render/Renderer.hpp"
 #include "Game.hpp"
 
 class Entity
