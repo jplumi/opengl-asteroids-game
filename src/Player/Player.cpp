@@ -3,8 +3,7 @@
 #include "Enemies/EnemiesManager.hpp"
 #include "Shots/ShotsManager.hpp"
 #include "Defs.h"
-
-float lerp(float a, float b, float t);
+#include "Util.h"
 
 void Player::AddForce(glm::vec2 f)
 {
@@ -54,8 +53,8 @@ void Player::Update(float deltaTime)
     position += m_force * deltaTime;
 
     // drag
-    m_force.x = lerp(m_force.x, 0, deltaTime * 0.75f);
-    m_force.y = lerp(m_force.y, 0, deltaTime * 0.75f);
+    m_force.x = Util::lerp(m_force.x, 0, deltaTime * 0.75f);
+    m_force.y = Util::lerp(m_force.y, 0, deltaTime * 0.75f);
 
     CheckCollision();
 }

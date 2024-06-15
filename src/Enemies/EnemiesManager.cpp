@@ -1,9 +1,7 @@
 #include "EnemiesManager.hpp"
 #include "ResourceManager/ResourceManager.hpp"
 #include "Defs.h"
-
-bool checkCircleCollision(const glm::vec2 &aPos, float aRadius,
-                          const glm::vec2 &bPos, float bRadius);
+#include "Util.h"
 
 EnemiesManager::EnemiesManager(Game* game) : m_game(game) {}
 
@@ -21,45 +19,50 @@ void EnemiesManager::Init()
     ResourceManager::LoadTexture2D("asteroid3", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/big_asteroid_3.png", true);
 }
 
-void EnemiesManager::SpawnAsteroid()
+void EnemiesManager::SpawnRandomAsteroid()
 {
     if(m_enemiesIndex < MAX_ENEMIES)
     {
-        Entity* newEnemy = new Entity(m_game);
-
-        // random sprite
-        newEnemy->texture = ResourceManager::GetTexture2D(
-            "asteroid" + std::to_string(1 + rand() % 3));
-
-        // random size
-        int randomSize = m_asteroidSizeOptions[rand() % 3];
-        newEnemy->size = glm::vec2(randomSize);
-        newEnemy->colliderRadius = randomSize/2;
+        float size = 140;
 
         // random position
+        glm::vec2 position;
         if(rand() % 2) // right side
         {
-            newEnemy->position.x = WINDOW_WIDTH;
-            newEnemy->position.y = rand() % WINDOW_HEIGHT;
+            position.x = WINDOW_WIDTH;
+            position.y = rand() % WINDOW_HEIGHT;
         } else // left side
         {
-            newEnemy->position.x = -newEnemy->size.x;
-            newEnemy->position.y = rand() % WINDOW_HEIGHT;
+            position.x = -size;
+            position.y = rand() % WINDOW_HEIGHT;
         }
 
-        // random rotation
-        float randomAngle = rand() % 180;
-        newEnemy->rotation = randomAngle;
+        glm::vec2 direction = glm::normalize(glm::vec2(rand() - RAND_MAX/2, rand() - RAND_MAX/2));
 
-        // random direction
-        newEnemy->forward = glm::normalize(glm::vec2(rand() - RAND_MAX/2, rand() - RAND_MAX/2));
+        float speed = 20 + rand() % 200;
 
-        // random speed
-        newEnemy->speed = 20 + rand() % 200;
-
-        m_enemies.emplace(newEnemy->id, newEnemy);
-        m_enemiesIndex++;
+        SpawnAsteroid(position, direction, speed, size);
     }
+}
+
+void EnemiesManager::SpawnAsteroid(glm::vec2 position, glm::vec2 direction, float speed, float size)
+{
+    Entity* enemy = new Entity(m_game);
+    enemy->position = position;
+    enemy->forward = direction;
+    enemy->speed = speed;
+    
+    enemy->size = glm::vec2(size);
+    enemy->colliderRadius = size/2;
+
+    enemy->texture = ResourceManager::GetTexture2D(
+        "asteroid" + std::to_string(1 + rand() % 3));
+
+    float randomAngle = rand() % 180;
+    enemy->rotation = randomAngle;
+
+    m_enemies.emplace(enemy->id, enemy);
+    m_enemiesIndex++;
 }
 
 void EnemiesManager::UpdateEnemies(float deltaTime)
@@ -67,7 +70,7 @@ void EnemiesManager::UpdateEnemies(float deltaTime)
     m_currSpawnTime += deltaTime;
     if(m_currSpawnTime >= m_spawnInterval)
     {
-        SpawnAsteroid();
+        SpawnRandomAsteroid();
         m_currSpawnTime = 0.0f;
     }
 
@@ -108,7 +111,13 @@ void EnemiesManager::DestroyEnemy(unsigned int id)
     auto it = m_enemies.find(id);
     if(it != m_enemies.end())
     {
-        delete it->second;
+        Entity* e = it->second;
+        if(e->size.x > 35)
+        {
+            SpawnAsteroid(e->position, Util::randomDirection(), e->speed, e->size.x/2);
+            SpawnAsteroid(e->position, Util::randomDirection(), e->speed, e->size.x/2);
+        }
+        delete e;
         it->second = nullptr;
     }
 }
@@ -120,7 +129,7 @@ Entity* EnemiesManager::CheckCollision(Entity* obj) const
         if(it->second != nullptr)
         {
             Entity* enemy = it->second;
-            if(checkCircleCollision(obj->position, obj->colliderRadius, enemy->position, enemy->colliderRadius))
+            if(Util::checkCircleCollision(obj->position, obj->colliderRadius, enemy->position, enemy->colliderRadius))
             {
                 return enemy;
             }

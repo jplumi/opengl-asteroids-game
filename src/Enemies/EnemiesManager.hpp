@@ -26,8 +26,7 @@ private:
 
     const float m_spawnInterval = 1.0f;
     float m_currSpawnTime = 0.0f;
-
-    const int m_asteroidSizeOptions[3] = { 50, 80, 120 };
 private:
-    void SpawnAsteroid();
+    void SpawnAsteroid(glm::vec2 position, glm::vec2 direction, float speed, float size);
+    void SpawnRandomAsteroid();
 };

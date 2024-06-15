@@ -24,7 +24,7 @@ private:
     bool m_showThrust = false;
 
     bool m_canShoot = true;
-    float m_shootInterval = 0.5f;
+    float m_shootInterval = 0.2f;
     float m_shootPassedTime = 0.0f;
 private:
     void UpdateVectors();
