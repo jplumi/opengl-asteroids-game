@@ -7,8 +7,8 @@ INCLUDES := -Idependencies/include -Isrc
 SRC := src
 CPP_SRCS=$(shell find $(SRC) -name "*.cpp")
 
-build:
-	$(CC) $(FLAGS) src/glad.c $(CPP_SRCS) $(INCLUDES) -o $(OUT) $(LIBS_PATH) $(LIBS) -DDEV_BUILD
+debug:
+	$(CC) $(FLAGS) src/glad.c $(CPP_SRCS) $(INCLUDES) -o $(OUT) $(LIBS_PATH) $(LIBS) -DDEV_BUILD -g
 
 release:
 	$(CC) $(FLAGS) src/glad.c $(CPP_SRCS) $(INCLUDES) -o $(OUT) $(LIBS_PATH) $(LIBS)
@@ -19,4 +19,4 @@ run:
 clean:
 	rm $(OUT)
 
-all: build run
+all: debug run
