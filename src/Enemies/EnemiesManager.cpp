@@ -17,11 +17,12 @@ void EnemiesManager::Init()
     ResourceManager::LoadTexture2D("asteroid1", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/big_asteroid_1.png", true);
     ResourceManager::LoadTexture2D("asteroid2", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/big_asteroid_2.png", true);
     ResourceManager::LoadTexture2D("asteroid3", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/big_asteroid_3.png", true);
+    SpawnRandomAsteroids();
 }
 
-void EnemiesManager::SpawnRandomAsteroid()
+void EnemiesManager::SpawnRandomAsteroids()
 {
-    if(m_enemiesIndex < MAX_ENEMIES)
+    for(int i = 0; i < m_maxEnemies; i++)
     {
         float size = 140;
 
@@ -33,24 +34,22 @@ void EnemiesManager::SpawnRandomAsteroid()
             position.y = rand() % WINDOW_HEIGHT;
         } else // left side
         {
-            position.x = -size;
+            position.x = 0;
             position.y = rand() % WINDOW_HEIGHT;
         }
 
         glm::vec2 direction = glm::normalize(glm::vec2(rand() - RAND_MAX/2, rand() - RAND_MAX/2));
 
-        float speed = 20 + rand() % 200;
-
-        SpawnAsteroid(position, direction, speed, size);
+        SpawnAsteroid(position, direction, size);
     }
 }
 
-void EnemiesManager::SpawnAsteroid(glm::vec2 position, glm::vec2 direction, float speed, float size)
+void EnemiesManager::SpawnAsteroid(glm::vec2 position, glm::vec2 direction, float size)
 {
     Entity* enemy = new Entity(m_game);
     enemy->position = position;
     enemy->forward = direction;
-    enemy->speed = speed;
+    enemy->speed = (float) m_maxSpeed/10 + rand() % m_maxSpeed;
     
     enemy->size = glm::vec2(size);
     enemy->colliderRadius = size/2;
@@ -62,16 +61,19 @@ void EnemiesManager::SpawnAsteroid(glm::vec2 position, glm::vec2 direction, floa
     enemy->rotation = randomAngle;
 
     m_enemies.emplace(enemy->id, enemy);
-    m_enemiesIndex++;
 }
 
 void EnemiesManager::UpdateEnemies(float deltaTime)
 {
-    m_currSpawnTime += deltaTime;
-    if(m_currSpawnTime >= m_spawnInterval)
+    if(m_enemies.size() == 0)
     {
-        SpawnRandomAsteroid();
-        m_currSpawnTime = 0.0f;
+        m_currSpawnTime += deltaTime;
+        if(m_currSpawnTime >= m_spawnInterval)
+        {
+            SpawnRandomAsteroids();
+            m_currSpawnTime = 0.0f;
+            m_maxEnemies++;
+        }
     }
 
     for(auto it = m_enemies.begin(); it != m_enemies.end();)
@@ -114,8 +116,8 @@ void EnemiesManager::DestroyEnemy(unsigned int id)
         Entity* e = it->second;
         if(e->size.x > 35)
         {
-            SpawnAsteroid(e->position, Util::randomDirection(), e->speed, e->size.x/2);
-            SpawnAsteroid(e->position, Util::randomDirection(), e->speed, e->size.x/2);
+            SpawnAsteroid(e->position, Util::randomDirection(), e->size.x/2);
+            SpawnAsteroid(e->position, Util::randomDirection(), e->size.x/2);
         }
         delete e;
         it->second = nullptr;

@@ -1,32 +1,34 @@
 #pragma once
 
 #include "Entity/Entity.hpp"
-#include <map>
+#include <unordered_map>
 
-#define MAX_ENEMIES 10
 
-class EnemiesManager
-{
+class EnemiesManager {
 public:
-    EnemiesManager(Game* game);
-    ~EnemiesManager();
+  EnemiesManager(Game *game);
+  ~EnemiesManager();
 
-    void Init();
-    void UpdateEnemies(float deltaTime);
-    void RenderEnemies(Renderer* renderer);
-    void DestroyEnemy(unsigned int id);
+  void Init();
+  void UpdateEnemies(float deltaTime);
+  void RenderEnemies(Renderer *renderer);
+  void DestroyEnemy(unsigned int id);
 
-    Entity* CheckCollision(Entity* obj) const;
+  Entity *CheckCollision(Entity *obj) const;
 
 private:
-    Game* m_game;
+  Game *m_game;
 
-    std::unordered_map<unsigned int, Entity*> m_enemies;
-    int m_enemiesIndex = 0;
+  int m_maxEnemies = 6;
+  int m_maxSpeed = 200;
 
-    const float m_spawnInterval = 1.0f;
-    float m_currSpawnTime = 0.0f;
+  std::unordered_map<unsigned int, Entity *> m_enemies;
+
+  const float m_spawnInterval = 1.0f;
+  float m_currSpawnTime = 0.0f;
+
 private:
-    void SpawnAsteroid(glm::vec2 position, glm::vec2 direction, float speed, float size);
-    void SpawnRandomAsteroid();
+  void SpawnAsteroid(glm::vec2 position, glm::vec2 direction,
+                     float size);
+  void SpawnRandomAsteroids();
 };

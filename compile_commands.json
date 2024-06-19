@@ -1,0 +1,236 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-std=c++11",
+      "-Idependencies/include",
+      "-Isrc",
+      "-DDEV_BUILD",
+      "-g",
+      "-o",
+      "out/game",
+      "src/glad.c"
+    ],
+    "directory": "/Users/joaolumi/Documents/cpp/asteroids",
+    "file": "/Users/joaolumi/Documents/cpp/asteroids/src/glad.c",
+    "output": "/Users/joaolumi/Documents/cpp/asteroids/out/game"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-std=c++11",
+      "-Idependencies/include",
+      "-Isrc",
+      "-DDEV_BUILD",
+      "-g",
+      "-o",
+      "out/game",
+      "src/ResourceManager/ResourceManager.cpp"
+    ],
+    "directory": "/Users/joaolumi/Documents/cpp/asteroids",
+    "file": "/Users/joaolumi/Documents/cpp/asteroids/src/ResourceManager/ResourceManager.cpp",
+    "output": "/Users/joaolumi/Documents/cpp/asteroids/out/game"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-std=c++11",
+      "-Idependencies/include",
+      "-Isrc",
+      "-DDEV_BUILD",
+      "-g",
+      "-o",
+      "out/game",
+      "src/Util.cpp"
+    ],
+    "directory": "/Users/joaolumi/Documents/cpp/asteroids",
+    "file": "/Users/joaolumi/Documents/cpp/asteroids/src/Util.cpp",
+    "output": "/Users/joaolumi/Documents/cpp/asteroids/out/game"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-std=c++11",
+      "-Idependencies/include",
+      "-Isrc",
+      "-DDEV_BUILD",
+      "-g",
+      "-o",
+      "out/game",
+      "src/Entity/Entity.cpp"
+    ],
+    "directory": "/Users/joaolumi/Documents/cpp/asteroids",
+    "file": "/Users/joaolumi/Documents/cpp/asteroids/src/Entity/Entity.cpp",
+    "output": "/Users/joaolumi/Documents/cpp/asteroids/out/game"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-std=c++11",
+      "-Idependencies/include",
+      "-Isrc",
+      "-DDEV_BUILD",
+      "-g",
+      "-o",
+      "out/game",
+      "src/Render/Shader.cpp"
+    ],
+    "directory": "/Users/joaolumi/Documents/cpp/asteroids",
+    "file": "/Users/joaolumi/Documents/cpp/asteroids/src/Render/Shader.cpp",
+    "output": "/Users/joaolumi/Documents/cpp/asteroids/out/game"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-std=c++11",
+      "-Idependencies/include",
+      "-Isrc",
+      "-DDEV_BUILD",
+      "-g",
+      "-o",
+      "out/game",
+      "src/Render/Texture2D.cpp"
+    ],
+    "directory": "/Users/joaolumi/Documents/cpp/asteroids",
+    "file": "/Users/joaolumi/Documents/cpp/asteroids/src/Render/Texture2D.cpp",
+    "output": "/Users/joaolumi/Documents/cpp/asteroids/out/game"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-std=c++11",
+      "-Idependencies/include",
+      "-Isrc",
+      "-DDEV_BUILD",
+      "-g",
+      "-o",
+      "out/game",
+      "src/Render/Renderer.cpp"
+    ],
+    "directory": "/Users/joaolumi/Documents/cpp/asteroids",
+    "file": "/Users/joaolumi/Documents/cpp/asteroids/src/Render/Renderer.cpp",
+    "output": "/Users/joaolumi/Documents/cpp/asteroids/out/game"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-std=c++11",
+      "-Idependencies/include",
+      "-Isrc",
+      "-DDEV_BUILD",
+      "-g",
+      "-o",
+      "out/game",
+      "src/main.cpp"
+    ],
+    "directory": "/Users/joaolumi/Documents/cpp/asteroids",
+    "file": "/Users/joaolumi/Documents/cpp/asteroids/src/main.cpp",
+    "output": "/Users/joaolumi/Documents/cpp/asteroids/out/game"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-std=c++11",
+      "-Idependencies/include",
+      "-Isrc",
+      "-DDEV_BUILD",
+      "-g",
+      "-o",
+      "out/game",
+      "src/Shots/ShotsManager.cpp"
+    ],
+    "directory": "/Users/joaolumi/Documents/cpp/asteroids",
+    "file": "/Users/joaolumi/Documents/cpp/asteroids/src/Shots/ShotsManager.cpp",
+    "output": "/Users/joaolumi/Documents/cpp/asteroids/out/game"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-std=c++11",
+      "-Idependencies/include",
+      "-Isrc",
+      "-DDEV_BUILD",
+      "-g",
+      "-o",
+      "out/game",
+      "src/Shots/Shot.cpp"
+    ],
+    "directory": "/Users/joaolumi/Documents/cpp/asteroids",
+    "file": "/Users/joaolumi/Documents/cpp/asteroids/src/Shots/Shot.cpp",
+    "output": "/Users/joaolumi/Documents/cpp/asteroids/out/game"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-std=c++11",
+      "-Idependencies/include",
+      "-Isrc",
+      "-DDEV_BUILD",
+      "-g",
+      "-o",
+      "out/game",
+      "src/Game.cpp"
+    ],
+    "directory": "/Users/joaolumi/Documents/cpp/asteroids",
+    "file": "/Users/joaolumi/Documents/cpp/asteroids/src/Game.cpp",
+    "output": "/Users/joaolumi/Documents/cpp/asteroids/out/game"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-std=c++11",
+      "-Idependencies/include",
+      "-Isrc",
+      "-DDEV_BUILD",
+      "-g",
+      "-o",
+      "out/game",
+      "src/Enemies/EnemiesManager.cpp"
+    ],
+    "directory": "/Users/joaolumi/Documents/cpp/asteroids",
+    "file": "/Users/joaolumi/Documents/cpp/asteroids/src/Enemies/EnemiesManager.cpp",
+    "output": "/Users/joaolumi/Documents/cpp/asteroids/out/game"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-c",
+      "-Wall",
+      "-std=c++11",
+      "-Idependencies/include",
+      "-Isrc",
+      "-DDEV_BUILD",
+      "-g",
+      "-o",
+      "out/game",
+      "src/Player/Player.cpp"
+    ],
+    "directory": "/Users/joaolumi/Documents/cpp/asteroids",
+    "file": "/Users/joaolumi/Documents/cpp/asteroids/src/Player/Player.cpp",
+    "output": "/Users/joaolumi/Documents/cpp/asteroids/out/game"
+  }
+]
