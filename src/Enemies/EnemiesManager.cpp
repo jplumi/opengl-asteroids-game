@@ -17,7 +17,6 @@ void EnemiesManager::Init()
     ResourceManager::LoadTexture2D("asteroid1", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/big_asteroid_1.png", true);
     ResourceManager::LoadTexture2D("asteroid2", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/big_asteroid_2.png", true);
     ResourceManager::LoadTexture2D("asteroid3", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/big_asteroid_3.png", true);
-    SpawnRandomAsteroids();
 }
 
 void EnemiesManager::SpawnRandomAsteroids()
@@ -46,7 +45,7 @@ void EnemiesManager::SpawnRandomAsteroids()
 
 void EnemiesManager::SpawnAsteroid(glm::vec2 position, glm::vec2 direction, float size)
 {
-    Entity* enemy = new Entity(m_game);
+    Enemy* enemy = new Enemy(m_game);
     enemy->position = position;
     enemy->forward = direction;
     enemy->speed = (float) m_maxSpeed/10 + rand() % m_maxSpeed;
@@ -78,11 +77,10 @@ void EnemiesManager::UpdateEnemies(float deltaTime)
 
     for(auto it = m_enemies.begin(); it != m_enemies.end();)
     {
-        Entity* e = it->second;
+        Enemy* e = it->second;
         if(e != nullptr)
         {
             e->Update(deltaTime);
-            e->position += e->forward * deltaTime * e->speed;
             ++it;
         } 
         else
@@ -113,13 +111,8 @@ void EnemiesManager::DestroyEnemy(unsigned int id)
     auto it = m_enemies.find(id);
     if(it != m_enemies.end())
     {
-        Entity* e = it->second;
-        if(e->size.x > 35)
-        {
-            SpawnAsteroid(e->position, Util::randomDirection(), e->size.x/2);
-            SpawnAsteroid(e->position, Util::randomDirection(), e->size.x/2);
-        }
-        delete e;
+        it->second->OnDestroy();
+        delete it->second;
         it->second = nullptr;
     }
 }
@@ -130,7 +123,7 @@ Entity* EnemiesManager::CheckCollision(Entity* obj) const
     {
         if(it->second != nullptr)
         {
-            Entity* enemy = it->second;
+            Enemy* enemy = it->second;
             if(Util::checkCircleCollision(obj->position, obj->colliderRadius, enemy->position, enemy->colliderRadius))
             {
                 return enemy;

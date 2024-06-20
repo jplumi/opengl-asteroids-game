@@ -53,7 +53,7 @@ void Game::Update(float deltaTime)
 {
     if(m_playerIsAlive)
         player->Update(deltaTime);
-    else if(playerLives > 0)
+    else if(playerLives > 1)
     {
         m_DeathTimePassed += deltaTime;
         if(m_DeathTimePassed >= m_playerDeathTime) {

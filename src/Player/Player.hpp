@@ -13,8 +13,8 @@ public:
     void Rotate(float angle);
     void Reset();
 
-    void Render(Renderer* renderer) override;
     void Update(float deltaTime) override;
+    void Render(Renderer* renderer) override;
 
 private:
     glm::vec2 m_force;
