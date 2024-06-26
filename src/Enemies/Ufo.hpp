@@ -16,18 +16,26 @@ public:
 
     void Die();
 private:
+    float m_timePassed = 0.0f; // time counter
+    // movement
+    float m_switchMovementTime = 2.0f; // random time for the ship to switch y velocity 
+    float m_yDirections[3] = {-0.5f, 0.0f, 0.5f}; 
+
+    // spawn
+    float m_timeToSpawn = 2.0f; // random time for a ship to appear
+    bool m_shipDied = false;
+    bool m_showShip = false;
+
+    // shooting
+    float m_timeToShoot= 1.0f;
+    float m_timeToShootPassed = 0.0f;
+
+private:
     void Shoot();
 
     void MoveShip(float deltaTime);
     void CheckShouldShowShip(float deltaTime);
 
-    float m_switchMovementTime = 2.0f; // random time for the ship to switch y velocity 
-    float m_timeToSpawn = 2.0f; // random time for a ship to appear
-    float m_timePassed = 0.0f; // time counter
-    float m_yDirections[3] = {-0.5f, 0.0f, 0.5f}; 
-
-    bool m_shipDied = false;
-    bool m_showShip = false;
-
+    void ResetShip();
 };
 

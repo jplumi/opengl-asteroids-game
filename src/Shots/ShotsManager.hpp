@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Shot.hpp"
-#include <map>
+#include <unordered_map>
 
 class ShotsManager
 {

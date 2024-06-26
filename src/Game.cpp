@@ -7,7 +7,6 @@
 #include "Enemies/EnemiesManager.hpp"
 #include "Shots/ShotsManager.hpp"
 #include "Enemies/Ufo.hpp"
-#include <iostream>
 
 Game::~Game()
 {
@@ -15,6 +14,7 @@ Game::~Game()
     delete player;
     delete enemiesManager;
     delete shotsManager;
+    delete ufo;
 }
 
 void Game::Init()
