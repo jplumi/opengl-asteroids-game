@@ -5,12 +5,12 @@
 #include "Shots/ShotsManager.hpp"
 #include "Util.h"
 #include "Defs.h"
+#include <iostream>
 
 void Ufo::Init()
 {
     texture = ResourceManager::LoadTexture2D("Ufo", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/ufo.png", true);
     speed = 100;
-    ResetShip();
 }
 
 void Ufo::Update(float deltaTime)
@@ -34,11 +34,11 @@ void Ufo::MoveShip(float deltaTime)
 {
     Entity::Update(deltaTime);
     position += forward * speed * deltaTime;
-    m_timePassed += deltaTime;
-    if(m_timePassed >= m_switchMovementTime)
+    m_moveTimePassed += deltaTime;
+    if(m_moveTimePassed >= m_switchMovementTime)
     {
         forward.y = m_yDirections[rand() % 3];
-        m_timePassed = 0.0f;
+        m_moveTimePassed = 0.0f;
     }
 }
 
@@ -46,11 +46,11 @@ void Ufo::CheckShouldShowShip(float deltaTime)
 {
     if(!m_showShip)
     {
-        m_timePassed += deltaTime;
-        if(m_timePassed >= m_timeToSpawn)
+        m_spawnTimePassed += deltaTime;
+        if(m_spawnTimePassed >= m_timeToSpawn)
         {
             // spawn ship
-            m_timePassed = 0.0f;
+            m_spawnTimePassed = 0.0f;
             m_showShip = true;
             ResetShip();
         }
@@ -59,10 +59,9 @@ void Ufo::CheckShouldShowShip(float deltaTime)
     {
         m_shipDied = false;
         m_showShip = false;
-        m_timePassed = 0.0f;
+        m_spawnTimePassed = 0.0f;
     }
 }
-
 
 bool Ufo::CheckCollision(Entity* e)
 {
