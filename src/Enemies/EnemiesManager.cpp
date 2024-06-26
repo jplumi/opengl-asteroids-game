@@ -45,7 +45,7 @@ void EnemiesManager::SpawnRandomAsteroids()
 
 void EnemiesManager::SpawnAsteroid(glm::vec2 position, glm::vec2 direction, float size)
 {
-    Enemy* enemy = new Enemy(m_game);
+    Asteroid* enemy = new Asteroid(m_game);
     enemy->position = position;
     enemy->forward = direction;
     enemy->speed = (float) m_maxSpeed/10 + rand() % m_maxSpeed;
@@ -72,12 +72,13 @@ void EnemiesManager::UpdateEnemies(float deltaTime)
             SpawnRandomAsteroids();
             m_currSpawnTime = 0.0f;
             m_maxEnemies++;
+            m_maxSpeed += 10;
         }
     }
 
     for(auto it = m_enemies.begin(); it != m_enemies.end();)
     {
-        Enemy* e = it->second;
+        Asteroid* e = it->second;
         if(e != nullptr)
         {
             e->Update(deltaTime);
@@ -123,7 +124,7 @@ Entity* EnemiesManager::CheckCollision(Entity* obj) const
     {
         if(it->second != nullptr)
         {
-            Enemy* enemy = it->second;
+            Asteroid* enemy = it->second;
             if(Util::checkCircleCollision(obj->position, obj->colliderRadius, enemy->position, enemy->colliderRadius))
             {
                 return enemy;
@@ -132,5 +133,4 @@ Entity* EnemiesManager::CheckCollision(Entity* obj) const
     }
     return nullptr;
 }
-
 

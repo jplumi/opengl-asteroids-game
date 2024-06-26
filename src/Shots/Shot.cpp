@@ -2,6 +2,7 @@
 
 #include "ShotsManager.hpp"
 #include "Enemies/EnemiesManager.hpp"
+#include "Enemies/Ufo.hpp"
 
 void Shot::Update(float deltaTime)
 {
@@ -13,6 +14,13 @@ void Shot::Update(float deltaTime)
     if(enemy != nullptr)
     {
         m_game->enemiesManager->DestroyEnemy(enemy->id);
+        m_game->shotsManager->DestroyShot(id);
+        return;
+    }
+
+    if(m_game->ufo->CheckCollision(this))
+    {
+        m_game->ufo->Die();
         m_game->shotsManager->DestroyShot(id);
         return;
     }

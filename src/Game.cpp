@@ -6,6 +6,8 @@
 #include "Player/Player.hpp"
 #include "Enemies/EnemiesManager.hpp"
 #include "Shots/ShotsManager.hpp"
+#include "Enemies/Ufo.hpp"
+#include <iostream>
 
 Game::~Game()
 {
@@ -34,19 +36,16 @@ void Game::Init()
     player->thrustTex = ResourceManager::LoadTexture2D("shipThrust", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/ship_thrust.png", true);
 
     enemiesManager = new EnemiesManager(this);
-    enemiesManager->Init();
+    // enemiesManager->Init();
 
     shotsManager = new ShotsManager(this);
+    ufo = new Ufo(this);
+    ufo->Init();
 }
 
 void Game::HandleEvents()
 {
     glfwPollEvents();
-    // if(!m_playerIsAlive && keys[GLFW_KEY_SPACE])
-    // {
-    //     player->Reset();
-    //     m_playerIsAlive = true;
-    // }
 }
 
 void Game::Update(float deltaTime)
@@ -67,8 +66,9 @@ void Game::Update(float deltaTime)
     {
         Quit();
     }
-    enemiesManager->UpdateEnemies(deltaTime);
+    // enemiesManager->UpdateEnemies(deltaTime);
     shotsManager->UpdateShots(deltaTime);
+    ufo->Update(deltaTime);
 }
 
 void Game::Render()
@@ -79,8 +79,9 @@ void Game::Render()
     if(m_playerIsAlive)
         player->Render(renderer);
 
-    enemiesManager->RenderEnemies(renderer);
+    // enemiesManager->RenderEnemies(renderer);
     shotsManager->RenderShots(renderer);
+    ufo->Render(renderer);
 
     glBindVertexArray(0);
     glfwSwapBuffers(window);

@@ -7,6 +7,7 @@
 class Player;
 class EnemiesManager;
 class ShotsManager;
+class Ufo;
 
 class Game
 {
@@ -18,8 +19,9 @@ public:
     Player *player;
     EnemiesManager* enemiesManager;
     ShotsManager* shotsManager;
+    Ufo* ufo;
     bool keys[1024];
-
+    
     int playerLives = 3;
 public:
     void Init();
@@ -35,3 +37,4 @@ private:
     float m_playerDeathTime = 1.0f;
     float m_DeathTimePassed = 0.0f;
 };
+

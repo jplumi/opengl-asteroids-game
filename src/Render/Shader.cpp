@@ -1,5 +1,7 @@
 #include "Shader.hpp"
 
+#include <iostream>
+
 void Shader::Compile(const char* vSource, const char* fSource)
 {
     unsigned int vertex, fragment;

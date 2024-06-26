@@ -1,15 +1,15 @@
-#include "Enemy.hpp"
+#include "Asteroid.hpp"
 
 #include "Enemies/EnemiesManager.hpp"
 #include "Util.h"
 
-void Enemy::Update(float deltaTime)
+void Asteroid::Update(float deltaTime)
 {
     Entity::Update(deltaTime);
     position += forward * deltaTime * speed;
 }
 
-void Enemy::OnDestroy()
+void Asteroid::OnDestroy()
 {
     if(size.x > 35)
     {

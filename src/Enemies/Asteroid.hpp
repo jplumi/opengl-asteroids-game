@@ -2,7 +2,7 @@
 
 #include "Entity/Entity.hpp"
 
-class Enemy : public Entity
+class Asteroid : public Entity
 {
 public:
     using Entity::Entity;

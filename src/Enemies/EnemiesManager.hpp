@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Enemies/Enemy.hpp"
+#include "Enemies/Asteroid.hpp"
 #include <unordered_map>
 
 class EnemiesManager {
@@ -23,7 +23,7 @@ private:
   int m_maxEnemies = 6;
   int m_maxSpeed = 200;
 
-  std::unordered_map<unsigned int, Enemy *> m_enemies;
+  std::unordered_map<unsigned int, Asteroid*> m_enemies;
 
   const float m_spawnInterval = 1.0f;
   float m_currSpawnTime = 0.0f;

@@ -2,6 +2,9 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
 std::map<std::string, Shader*> ResourceManager::m_shaders;
 std::map<std::string, Texture2D*> ResourceManager::m_textures2D;
@@ -46,7 +49,7 @@ Shader* ResourceManager::LoadShader(const std::string name, const char* vertexPa
     return shader;
 }
 
-Texture2D* ResourceManager::LoadTexture2D(const std::string name, const char* path, bool alpha)
+Texture2D* ResourceManager::LoadTexture2D(const std::string &name, const char* path, bool alpha)
 {
     Texture2D* texture = new Texture2D;
     if(alpha)
@@ -72,7 +75,7 @@ Shader* ResourceManager::GetShader(const std::string name)
     return m_shaders[name];
 }
 
-Texture2D* ResourceManager::GetTexture2D(const std::string name)
+Texture2D* ResourceManager::GetTexture2D(const std::string &name)
 {
     return m_textures2D[name];
 }
@@ -84,3 +87,4 @@ void ResourceManager::Clear()
     for(auto i : m_textures2D)
         glDeleteTextures(1, &i.second->ID);
 }
+
