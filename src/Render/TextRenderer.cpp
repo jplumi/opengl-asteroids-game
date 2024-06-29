@@ -14,7 +14,7 @@ TextRenderer::TextRenderer(unsigned int width, unsigned int height)
     TextShader->Use();
     TextShader->SetMat4("projection", glm::ortho(0.0f, (float)WINDOW_WIDTH, (float)WINDOW_HEIGHT, 0.0f));
     TextShader->SetInt("text", 0);
-
+    
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glBindVertexArray(VAO);
@@ -94,7 +94,7 @@ void TextRenderer::RenderText(std::string text, float x, float y, float scale, g
     TextShader->SetVec3("textColor", color.x, color.y, color.z);
     glActiveTexture(GL_TEXTURE0);
     glBindVertexArray(VAO);
-
+    
     // iterate through all characters
     std::string::const_iterator c;
     for (c = text.begin(); c != text.end(); c++)
@@ -127,6 +127,7 @@ void TextRenderer::RenderText(std::string text, float x, float y, float scale, g
         // now advance cursors for next glyph
         x += (ch.Advance >> 6) * scale; // bitshift by 6 to get value in pixels (1/64th times 2^6 = 64)
     }
+
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
 }

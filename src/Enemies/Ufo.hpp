@@ -15,6 +15,7 @@ public:
     bool CheckCollision(Entity* e);
 
     void Die();
+    void Reset();
 private:
     // movement
     float m_switchMovementTime = 2.0f; // random time for the ship to switch y velocity 

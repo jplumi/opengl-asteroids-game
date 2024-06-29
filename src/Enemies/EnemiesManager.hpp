@@ -15,6 +15,8 @@ public:
 
   Entity *CheckCollision(Entity *obj) const;
 
+  void Reset();
+
   void SpawnAsteroid(glm::vec2 position, glm::vec2 direction,
           float size);
 private:

@@ -62,6 +62,15 @@ void EnemiesManager::SpawnAsteroid(glm::vec2 position, glm::vec2 direction, floa
     m_enemies.emplace(enemy->id, enemy);
 }
 
+void EnemiesManager::Reset()
+{
+    for(auto e : m_enemies)
+        delete e.second;
+    m_enemies.clear();
+
+    m_currSpawnTime = 0.0f;
+}
+
 void EnemiesManager::UpdateEnemies(float deltaTime)
 {
     if(m_enemies.size() == 0)

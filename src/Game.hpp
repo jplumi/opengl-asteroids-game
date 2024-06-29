@@ -5,6 +5,10 @@
 #include "Render/Renderer.hpp"
 #include "Render/TextRenderer.hpp"
 
+enum class GameState {
+    MENU, PLAYING, DEATH
+};
+
 class Player;
 class EnemiesManager;
 class ShotsManager;
@@ -18,12 +22,13 @@ public:
     GLFWwindow* window;
     Renderer *renderer;
     TextRenderer *textRenderer;
-    Player *player;
+
     EnemiesManager* enemiesManager;
     ShotsManager* shotsManager;
     Ufo* ufo;
     bool keys[1024];
     
+    Player *player;
     int playerLives = 3;
 public:
     void Init();
@@ -38,5 +43,7 @@ private:
 
     float m_playerDeathTime = 1.5f;
     float m_DeathTimePassed = 0.0f;
+
+    GameState m_gameState;
 };
 

@@ -50,8 +50,6 @@ void Ufo::CheckShouldShowShip(float deltaTime)
         if(m_spawnTimePassed >= m_timeToSpawn)
         {
             // spawn ship
-            m_spawnTimePassed = 0.0f;
-            m_showShip = true;
             ResetShip();
         }
     }
@@ -87,6 +85,8 @@ void Ufo::Shoot()
 
 void Ufo::ResetShip()
 {
+    m_spawnTimePassed = 0.0f;
+    m_showShip = true;
     if(rand() % 2) // right side
     {
         position.x = WINDOW_WIDTH;
@@ -102,5 +102,11 @@ void Ufo::ResetShip()
     size = glm::vec2(60);
     colliderRadius = 30; 
     m_timeToSpawn = 10 + rand() % 10;
+}
+
+void Ufo::Reset()
+{
+    m_shipDied = true;
+    ResetShip();
 }
 

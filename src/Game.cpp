@@ -45,34 +45,52 @@ void Game::Init()
     shotsManager = new ShotsManager(this);
     ufo = new Ufo(this);
     ufo->Init();
+
+    m_gameState = GameState::MENU;
 }
 
 void Game::HandleEvents()
 {
     glfwPollEvents();
+    if(m_gameState == GameState::MENU)
+    {
+        if(keys[GLFW_KEY_ENTER])
+        {
+            enemiesManager->Reset();
+            ufo->Reset();
+            m_gameState = GameState::PLAYING;
+        }
+    }
 }
 
 void Game::Update(float deltaTime)
 {
-    if(m_playerIsAlive)
-        player->Update(deltaTime);
-    else if(playerLives > 1)
+    if(m_gameState == GameState::MENU)
     {
-        m_DeathTimePassed += deltaTime;
-        if(m_DeathTimePassed >= m_playerDeathTime) {
-            playerLives--;
-            player->Reset();
-            m_playerIsAlive = true;
-            m_DeathTimePassed = 0.0f;
+
+    }
+    else if(m_gameState == GameState::PLAYING)
+    {
+        if(m_playerIsAlive)
+            player->Update(deltaTime);
+        else if(playerLives > 1)
+        {
+            m_DeathTimePassed += deltaTime;
+            if(m_DeathTimePassed >= m_playerDeathTime) {
+                playerLives--;
+                player->Reset();
+                m_playerIsAlive = true;
+                m_DeathTimePassed = 0.0f;
+            }
+        }
+        else
+        {
+            Quit();
         }
     }
-    else
-    {
-        Quit();
-    }
     enemiesManager->UpdateEnemies(deltaTime);
-    shotsManager->UpdateShots(deltaTime);
     ufo->Update(deltaTime);
+    shotsManager->UpdateShots(deltaTime);
 }
 
 void Game::Render()
@@ -80,14 +98,18 @@ void Game::Render()
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    if(m_playerIsAlive)
-        player->Render(renderer);
-
+    if(m_gameState == GameState::MENU)
+    {
+        textRenderer->RenderText("press enter", 325, 300, 1.5f);
+    }
+    else if(m_gameState == GameState::PLAYING)
+    {
+        if(m_playerIsAlive)
+            player->Render(renderer);
+    }
     enemiesManager->RenderEnemies(renderer);
     shotsManager->RenderShots(renderer);
     ufo->Render(renderer);
-    
-    textRenderer->RenderText("ola tudo bom 123", 200, 200, 1.0f);
 
     glfwSwapBuffers(window);
 }
