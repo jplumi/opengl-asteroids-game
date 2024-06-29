@@ -2,6 +2,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "Enemies/HUD/HudManager.hpp"
 #include "Render/Renderer.hpp"
 #include "Render/TextRenderer.hpp"
 
@@ -23,13 +24,16 @@ public:
     Renderer *renderer;
     TextRenderer *textRenderer;
 
+    HudManager *hudManager;
+
     EnemiesManager* enemiesManager;
     ShotsManager* shotsManager;
     Ufo* ufo;
-    bool keys[1024];
     
     Player *player;
     int playerLives = 3;
+
+    bool keys[1024];
 public:
     void Init();
     void HandleEvents();

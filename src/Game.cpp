@@ -1,6 +1,7 @@
 #include "Game.hpp"
 
 #include "Defs.h"
+#include "Enemies/HUD/HudManager.hpp"
 #include "GLFW/glfw3.h"
 #include "ResourceManager/ResourceManager.hpp"
 #include "Player/Player.hpp"
@@ -16,6 +17,7 @@ Game::~Game()
     delete enemiesManager;
     delete shotsManager;
     delete ufo;
+    delete hudManager;
 }
 
 void Game::Init()
@@ -45,6 +47,8 @@ void Game::Init()
     shotsManager = new ShotsManager(this);
     ufo = new Ufo(this);
     ufo->Init();
+
+    hudManager = new HudManager();
 
     m_gameState = GameState::MENU;
 }
@@ -111,12 +115,15 @@ void Game::Render()
     shotsManager->RenderShots(renderer);
     ufo->Render(renderer);
 
+    hudManager->Render(renderer, textRenderer);
+
     glfwSwapBuffers(window);
 }
 
 void Game::PlayerDeath()
 {
     m_playerIsAlive = false;
+    hudManager->TakeLife();
 }
 
 void Game::Quit()
