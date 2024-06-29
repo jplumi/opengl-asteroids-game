@@ -11,7 +11,7 @@ public:
 
     void Render(Renderer *renderer, TextRenderer *textRenderer);
 
-    void UpdateScore(int amount);
+    void AddPoints(int amount);
     void TakeLife();
 
 private:

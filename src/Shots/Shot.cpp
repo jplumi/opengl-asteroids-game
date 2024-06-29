@@ -17,6 +17,20 @@ void Shot::Update(float deltaTime)
         Entity* enemy = m_game->enemiesManager->CheckCollision(this);
         if(enemy != nullptr)
         {
+            switch ((int)enemy->size.x) {
+                case 35:
+                    m_game->hudManager->AddPoints(100);
+                    break;
+                case 70:
+                    m_game->hudManager->AddPoints(50);
+                    break;
+                case 140:
+                    m_game->hudManager->AddPoints(20);
+                    break;
+                default: 
+                    break;
+
+            }
             m_game->enemiesManager->DestroyEnemy(enemy->id);
             m_game->shotsManager->DestroyShot(id);
             return;
@@ -25,6 +39,7 @@ void Shot::Update(float deltaTime)
         if(m_game->ufo->CheckCollision(this))
         {
             m_game->ufo->Die();
+            m_game->hudManager->AddPoints(200);
             m_game->shotsManager->DestroyShot(id);
             return;
         }
