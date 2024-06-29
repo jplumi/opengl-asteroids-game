@@ -1,6 +1,7 @@
 #include "Player/Player.hpp"
 
 #include "Enemies/EnemiesManager.hpp"
+#include "Enemies/Ufo.hpp"
 #include "Shots/ShotsManager.hpp"
 #include "Defs.h"
 #include "Util.h"
@@ -77,7 +78,7 @@ void Player::RenderThrust(Renderer* renderer)
 
 void Player::CheckCollision()
 {
-    if(m_game->enemiesManager->CheckCollision(this) != nullptr)
+    if(m_game->enemiesManager->CheckCollision(this) != nullptr || m_game->ufo->CheckCollision(this))
         m_game->PlayerDeath();
 }
 

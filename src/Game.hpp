@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "Render/Renderer.hpp"
+#include "Render/TextRenderer.hpp"
 
 class Player;
 class EnemiesManager;
@@ -16,6 +17,7 @@ public:
 
     GLFWwindow* window;
     Renderer *renderer;
+    TextRenderer *textRenderer;
     Player *player;
     EnemiesManager* enemiesManager;
     ShotsManager* shotsManager;
@@ -34,7 +36,7 @@ public:
 private:
     bool m_playerIsAlive = true;
 
-    float m_playerDeathTime = 1.0f;
+    float m_playerDeathTime = 1.5f;
     float m_DeathTimePassed = 0.0f;
 };
 

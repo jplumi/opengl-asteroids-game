@@ -22,7 +22,7 @@ private:
     float m_yDirections[3] = {-0.5f, 0.0f, 0.5f}; 
 
     // spawn
-    float m_timeToSpawn = 2.0f; // random time for a ship to appear
+    float m_timeToSpawn; // random time for a ship to appear
     float m_spawnTimePassed = 0.0f;
     bool m_shipDied = false;
     bool m_showShip = false;

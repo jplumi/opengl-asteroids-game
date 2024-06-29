@@ -11,3 +11,4 @@ void main()
 {
     FragColor = vec4(objectColor, 1.0) * texture(image, TexCoords);
 }
+

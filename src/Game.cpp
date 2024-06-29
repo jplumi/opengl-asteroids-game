@@ -11,6 +11,7 @@
 Game::~Game()
 {
     delete renderer;
+    delete textRenderer;
     delete player;
     delete enemiesManager;
     delete shotsManager;
@@ -21,6 +22,9 @@ void Game::Init()
 {
     renderer = new Renderer();
     renderer->InitRenderData();
+
+    textRenderer = new TextRenderer(WINDOW_WIDTH, WINDOW_HEIGHT);
+    textRenderer->Load("/Users/joaolumi/Documents/cpp/asteroids/resources/fonts/hyperspace/Hyperspace.otf", 24);
 
     // init player
     glm::vec2 playerPos = glm::vec2(WINDOW_WIDTH/2, WINDOW_HEIGHT/2);
@@ -36,7 +40,7 @@ void Game::Init()
     player->thrustTex = ResourceManager::LoadTexture2D("shipThrust", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/ship_thrust.png", true);
 
     enemiesManager = new EnemiesManager(this);
-    // enemiesManager->Init();
+    enemiesManager->Init();
 
     shotsManager = new ShotsManager(this);
     ufo = new Ufo(this);
@@ -66,7 +70,7 @@ void Game::Update(float deltaTime)
     {
         Quit();
     }
-    // enemiesManager->UpdateEnemies(deltaTime);
+    enemiesManager->UpdateEnemies(deltaTime);
     shotsManager->UpdateShots(deltaTime);
     ufo->Update(deltaTime);
 }
@@ -79,11 +83,12 @@ void Game::Render()
     if(m_playerIsAlive)
         player->Render(renderer);
 
-    // enemiesManager->RenderEnemies(renderer);
+    enemiesManager->RenderEnemies(renderer);
     shotsManager->RenderShots(renderer);
     ufo->Render(renderer);
+    
+    textRenderer->RenderText("ola tudo bom 123", 200, 200, 1.0f);
 
-    glBindVertexArray(0);
     glfwSwapBuffers(window);
 }
 

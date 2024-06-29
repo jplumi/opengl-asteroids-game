@@ -5,12 +5,12 @@
 #include "Shots/ShotsManager.hpp"
 #include "Util.h"
 #include "Defs.h"
-#include <iostream>
 
 void Ufo::Init()
 {
     texture = ResourceManager::LoadTexture2D("Ufo", "/Users/joaolumi/Documents/cpp/asteroids/resources/sprites/ufo.png", true);
     speed = 100;
+    m_timeToSpawn = 10 + rand() % 10;
 }
 
 void Ufo::Update(float deltaTime)
@@ -65,7 +65,7 @@ void Ufo::CheckShouldShowShip(float deltaTime)
 
 bool Ufo::CheckCollision(Entity* e)
 {
-    return Util::checkCircleCollision(position, colliderRadius, e->position, e->colliderRadius);
+    return m_showShip && Util::checkCircleCollision(position, colliderRadius, e->position, e->colliderRadius);
 }
 
 void Ufo::Die()
@@ -101,5 +101,6 @@ void Ufo::ResetShip()
 
     size = glm::vec2(60);
     colliderRadius = 30; 
+    m_timeToSpawn = 10 + rand() % 10;
 }
 
