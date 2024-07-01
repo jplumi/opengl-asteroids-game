@@ -62,6 +62,8 @@ void Game::HandleEvents()
         {
             enemiesManager->Reset();
             ufo->Reset();
+            hudManager->Reset();
+            player->Reset();
             m_gameState = GameState::PLAYING;
         }
     }
@@ -69,11 +71,7 @@ void Game::HandleEvents()
 
 void Game::Update(float deltaTime)
 {
-    if(m_gameState == GameState::MENU)
-    {
-
-    }
-    else if(m_gameState == GameState::PLAYING)
+    if(m_gameState == GameState::PLAYING)
     {
         if(m_playerIsAlive)
             player->Update(deltaTime);
@@ -89,7 +87,9 @@ void Game::Update(float deltaTime)
         }
         else
         {
-            Quit();
+            m_gameState = GameState::MENU;
+            playerLives = 3;
+            m_playerIsAlive = true;
         }
     }
     enemiesManager->UpdateEnemies(deltaTime);

@@ -1,10 +1,13 @@
 #include "Ufo.hpp"
 
+#include "Enemies/EnemiesManager.hpp"
+#include "GLFW/glfw3.h"
 #include "ResourceManager/ResourceManager.hpp"
 #include "Shots/Shot.hpp"
 #include "Shots/ShotsManager.hpp"
 #include "Util.h"
 #include "Defs.h"
+#include <iostream>
 
 void Ufo::Init()
 {
@@ -27,6 +30,11 @@ void Ufo::Update(float deltaTime)
             m_timeToShoot = (100 + rand() % 100) / 100.0f; // from 1.0 to 2.0
             Shoot();
         }
+    }
+
+    if(m_game->enemiesManager->CheckCollision(this) != nullptr)
+    {
+        Die();
     }
 }
 
@@ -101,7 +109,7 @@ void Ufo::ResetShip()
 
     size = glm::vec2(60);
     colliderRadius = 30; 
-    m_timeToSpawn = 10 + rand() % 10;
+    m_timeToSpawn = 2 + rand() % 10;
 }
 
 void Ufo::Reset()

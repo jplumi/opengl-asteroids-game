@@ -35,3 +35,9 @@ void HudManager::TakeLife()
     m_lives--;
 }
 
+void HudManager::Reset()
+{
+    m_lives = 3;
+    m_score = 0;
+}
+

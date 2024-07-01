@@ -14,6 +14,8 @@ public:
     void AddPoints(int amount);
     void TakeLife();
 
+    void Reset();
+
 private:
     unsigned int m_score = 0;
     int m_lives = 3;
