@@ -26,7 +26,7 @@ int main()
 #endif
 
     
-    game.window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "LearnOpenGL", NULL, NULL);
+    game.window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Asteroids", NULL, NULL);
     if (game.window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
